@@ -1,0 +1,514 @@
+pygame 1.9.6
+Hello from the pygame community. https://www.pygame.org/contribute.html
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: Interlace handling should be turned on when using png_read_image
+else if (step1 ==  0  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 177 - 7 && PositionX < 177 + 7 && PositionY > 252 - 7 && PositionY < 252 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 177 , 252 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 177 //
+//Y 252 //
+else if (step1 ==  1  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 203 - 7 && PositionX < 203 + 7 && PositionY > 204 - 7 && PositionY < 204 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 203 , 204 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 203 //
+//Y 204 //
+else if (step1 ==  2  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 273 - 7 && PositionX < 273 + 7 && PositionY > 203 - 7 && PositionY < 203 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 273 , 203 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 273 //
+//Y 203 //
+else if (step1 ==  3  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 300 - 7 && PositionX < 300 + 7 && PositionY > 254 - 7 && PositionY < 254 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 300 , 254 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 300 //
+//Y 254 //
+else if (step1 ==  4  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 345 - 7 && PositionX < 345 + 7 && PositionY > 256 - 7 && PositionY < 256 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 345 , 256 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 345 //
+//Y 256 //
+else if (step1 ==  5  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 344 - 7 && PositionX < 344 + 7 && PositionY > 172 - 7 && PositionY < 172 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 344 , 172 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 344 //
+//Y 172 //
+else if (step1 ==  6  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 244 - 7 && PositionX < 244 + 7 && PositionY > 175 - 7 && PositionY < 175 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 244 , 175 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 244 //
+//Y 175 //
+else if (step1 ==  7  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 244 - 7 && PositionX < 244 + 7 && PositionY > 138 - 7 && PositionY < 138 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 244 , 138 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 244 //
+//Y 138 //
+else if (step1 ==  8  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 188 - 7 && PositionX < 188 + 7 && PositionY > 140 - 7 && PositionY < 140 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 188 , 140 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 188 //
+//Y 140 //
+else if (step1 ==  9  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 187 - 7 && PositionX < 187 + 7 && PositionY > 107 - 7 && PositionY < 107 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 187 , 107 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 187 //
+//Y 107 //
+else if (step1 ==  10  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 148 - 7 && PositionX < 148 + 7 && PositionY > 104 - 7 && PositionY < 104 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 148 , 104 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 148 //
+//Y 104 //
+else if (step1 ==  11  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 154 - 7 && PositionX < 154 + 7 && PositionY > 59 - 7 && PositionY < 59 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 154 , 59 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 154 //
+//Y 59 //
+else if (step1 ==  12  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 228 - 7 && PositionX < 228 + 7 && PositionY > 54 - 7 && PositionY < 54 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 228 , 54 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 228 //
+//Y 54 //
+else if (step1 ==  13  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 230 - 7 && PositionX < 230 + 7 && PositionY > 104 - 7 && PositionY < 104 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 230 , 104 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 230 //
+//Y 104 //
+else if (step1 ==  14  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 256 - 7 && PositionX < 256 + 7 && PositionY > 100 - 7 && PositionY < 100 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 256 , 100 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 256 //
+//Y 100 //
+else if (step1 ==  15  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 257 - 7 && PositionX < 257 + 7 && PositionY > 56 - 7 && PositionY < 56 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 257 , 56 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 257 //
+//Y 56 //
+else if (step1 ==  16  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 290 - 7 && PositionX < 290 + 7 && PositionY > 55 - 7 && PositionY < 55 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 290 , 55 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 290 //
+//Y 55 //
+else if (step1 ==  17  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 289 - 7 && PositionX < 289 + 7 && PositionY > 17 - 7 && PositionY < 17 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 289 , 17 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 289 //
+//Y 17 //
+else if (step1 ==  18  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 52 - 7 && PositionX < 52 + 7 && PositionY > 24 - 7 && PositionY < 24 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 52 , 24 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 52 //
+//Y 24 //
+else if (step1 ==  19  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 53 - 7 && PositionX < 53 + 7 && PositionY > 137 - 7 && PositionY < 137 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 53 , 137 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 53 //
+//Y 137 //
+else if (step1 ==  20  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 116 - 7 && PositionX < 116 + 7 && PositionY > 138 - 7 && PositionY < 138 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 116 , 138 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 116 //
+//Y 138 //
+else if (step1 ==  21  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 113 - 7 && PositionX < 113 + 7 && PositionY > 172 - 7 && PositionY < 172 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 113 , 172 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 113 //
+//Y 172 //
+else if (step1 ==  22  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 13 - 7 && PositionX < 13 + 7 && PositionY > 176 - 7 && PositionY < 176 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 13 , 176 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 13 //
+//Y 176 //
+else if (step1 ==  23  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 20 - 7 && PositionX < 20 + 7 && PositionY > 204 - 7 && PositionY < 204 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 20 , 204 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 20 //
+//Y 204 //
+else if (step1 ==  24  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 52 - 7 && PositionX < 52 + 7 && PositionY > 240 - 7 && PositionY < 240 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 52 , 240 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 52 //
+//Y 240 //
+else if (step1 ==  25  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 63 - 7 && PositionX < 63 + 7 && PositionY > 260 - 7 && PositionY < 260 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 63 , 260 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 63 //
+//Y 260 //
+else if (step1 ==  26  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 105 - 7 && PositionX < 105 + 7 && PositionY > 250 - 7 && PositionY < 250 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 105 , 250 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 105 //
+//Y 250 //
+else if (step1 ==  27  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 135 - 7 && PositionX < 135 + 7 && PositionY > 203 - 7 && PositionY < 203 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 135 , 203 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 135 //
+//Y 203 //
+else if (step1 ==  28  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 164 - 7 && PositionX < 164 + 7 && PositionY > 203 - 7 && PositionY < 203 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 164 , 203 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 164 //
+//Y 203 //
+else if (step1 ==  29  && px != 0 && py != 0 && tik == 0 && base == 0)
+        {
+                borobaadi++;
+                if (( PositionX > 177 - 7 && PositionX < 177 + 7 && PositionY > 254 - 7 && PositionY < 254 + 7) || (borobaadi > timema))
+                {
+                        step1++;
+                        borobaadi = 0;
+                }
+                else
+                {
+                        zavie = mazmaz( 177 , 254 );
+                        bahbah(zavie);
+                }
+        }
+//---//
+//X 177 //
+//Y 254 //

@@ -1,0 +1,2329 @@
+
+//////////////////////////////////////
+// ONLY C Code can be compiled.
+/////////////////////////////////////
+#define CsBot_AI_H//DO NOT delete this line
+#ifndef CSBOT_REAL
+#include <windows.h>
+#include <stdio.h>
+#include <math.h>
+#define DLL_EXPORT extern __declspec(dllexport)
+#define false 0
+#define true 1
+#endif//The robot ID : It must be two char, such as '00','kl' or 'Cr'.
+char AI_MyID[2] = { '0', '2' };
+
+//Defualt 
+int Duration = 0;
+int SuperDuration = 0;
+int bGameEnd = false;
+int CurAction = -1;
+int CurGame = 0;
+int SuperObj_Num = 0;
+int SuperObj_X = 0;
+int SuperObj_Y = 0;
+int Teleport = 0;
+int LoadedObjects = 0;
+int US_Front = 0;
+int US_Left = 0;
+int US_Right = 0;
+int CSLeft_R = 0;
+int CSLeft_G = 0;
+int CSLeft_B = 0;
+int CSRight_R = 0;
+int CSRight_G = 0;
+int CSRight_B = 0;
+int PositionX = 0;
+int PositionY = 0;
+int TM_State = 0;
+int Compass = 0;
+int Time = 0;
+int WheelLeft = 0;
+int WheelRight = 0;
+int LED_1 = 0;
+int MyState = 0;
+int AI_SensorNum = 13;
+//Colors
+int red = 0;
+int black = 0;
+int cyan = 0;
+int pink = 0;
+//X super obj
+int sx = 0;
+int sx2 = 0;
+//Y super obj
+int sy = 0;
+int sy2 = 0;
+//sx backup
+int sxb = 0;
+//time out super object
+int tmo = 200;
+//koorradioi
+int px, py = 0;
+//batlagh
+int lajan = 0;
+//deposite marhalei
+int jaleb = 0;
+//marker
+int marker = 0;
+//bikhail
+int tik = 0;
+//outsite
+int out = 0;
+//baze marker
+int bazemark = 0;
+// zavie marker
+int zmarker = 0;
+//min
+int minmark = 0;
+//max
+int maxmark = 0;
+//Step 
+int step = 0;
+//Time Bein Step Ha
+int borobaadi = 133;
+int timema = 133;
+//Taghib Divar
+int followL = 1;
+int followR = 1;
+//Step World 1
+int turn = 0;
+//For SOZ 
+int base = 0;
+int base2 = 0;
+//Arshia
+int abi = 0;
+int timer = 0;
+int taghib = 0;
+//Step Positions
+int stepx[42] = { 120.0, 78.0, 137.0, 109.0, 169.0, 236.0, 311.0, 339.0, 321.0, 302.0, 341.0, 312.0, 249.0, 206.0, 149.0, 106.0, 125.0, 73.0, 52.0, 22.0, 24.0, 58.0, 118.0, 200.0, 234.0, 288.0, 231.0, 278.0, 232.0, 284.0, 255.0, 179.0, 124.0, 59.0, 24.0, 27.0, 86.0, 64.0, 14.0, 14.0, 59.0, 119.0 };
+int stepy[42] = { 135.0, 162.0, 194.0, 225.0, 249.0, 220.0, 250.0, 213.0, 160.0, 105.0, 80.0, 18.0, 45.0, 28.0, 30.0, 53.0, 91.0, 102.0, 162.0, 169.0, 211.0, 259.0, 225.0, 255.0, 184.0, 164.0, 100.0, 104.0, 62.0, 15.0, 69.0, 22.0, 50.0, 16.0, 50.0, 98.0, 125.0, 172.0, 174.0, 208.0, 249.0, 202.0 };
+//backup position deposit
+int pdx = 0;
+int pdy = 0;
+//backup position deposit2
+int pdx2 = 0;
+int pdy2 = 0;
+//backup position deposit3
+int pdx3 = 0;
+int pdy3 = 0;
+//backup position deposit4
+int pdx4 = 0;
+int pdy4 = 0;
+//fis
+int fisaqores = 0;
+//fis backup
+int fisbackup = 0;
+//deposit num
+int depositnum = 0;
+//trap num
+int trapnum = 0;
+//backup deposit
+int depox[3];
+int depoy[3];
+//backup trap
+int trax[10];
+int tray[10];
+//fasle index
+int fasleindex = 0;
+//backup super object
+int nargil = 0;
+//slowmode 
+int slowmode = 0;
+int slowmode2 = 0;
+//trapzone
+int trapzone = 0;
+//backup object ha
+//backup deposit
+int bbo[999][999];
+//object nums
+int obbnum = 0;
+int obrnum = 0;
+int obcnum = 0;
+int cbo = -1;
+int golab = 0;
+int golar = 0;
+int golac = 0;
+//closer color
+int fasleondex = 0;
+//
+int kb = 0;
+int kr = 0;
+int kc = 0;
+//fasle
+int fasleb = 0;
+int fasler = 0;
+int faslec = 0;
+//
+int kam = 0;
+// 
+int his = 0;
+//
+int this = 51;
+//
+int hey = 0;
+//arshia 2
+int khaz = 0;
+int markerz = 90; // har seri avaz mishavad
+int zamin1 = 0;
+int sismas = 0;
+int ix = 0;
+int iy = 0;
+int hellothere1 = 0;
+int hellothere2 = 0;
+int hellothere3 = 0;
+#define CsBot_AI_C//DO NOT delete this line
+DLL_EXPORT void SetGameID(int GameID)
+{
+	CurGame = GameID;
+	bGameEnd = 0;
+}
+
+DLL_EXPORT int GetGameID()
+{
+	return CurGame;
+}
+
+//Only Used by CsBot Dance Platform
+DLL_EXPORT int IsGameEnd()
+{
+	return bGameEnd;
+}
+
+#ifndef CSBOT_REAL
+
+DLL_EXPORT char* GetDebugInfo()
+{
+	char info[1024];
+	sprintf(info, "Duration=%d;SuperDuration=%d;bGameEnd=%d;CurAction=%d;CurGame=%d;SuperObj_Num=%d;SuperObj_X=%d;SuperObj_Y=%d;Teleport=%d;LoadedObjects=%d;US_Front=%d;US_Left=%d;US_Right=%d;CSLeft_R=%d;CSLeft_G=%d;CSLeft_B=%d;CSRight_R=%d;CSRight_G=%d;CSRight_B=%d;PositionX=%d;PositionY=%d;TM_State=%d;Compass=%d;Time=%d;WheelLeft=%d;WheelRight=%d;LED_1=%d;MyState=%d;", Duration, SuperDuration, bGameEnd, CurAction, CurGame, SuperObj_Num, SuperObj_X, SuperObj_Y, Teleport, LoadedObjects, US_Front, US_Left, US_Right, CSLeft_R, CSLeft_G, CSLeft_B, CSRight_R, CSRight_G, CSRight_B, PositionX, PositionY, TM_State, Compass, Time, WheelLeft, WheelRight, LED_1, MyState);
+	return info;
+}
+
+DLL_EXPORT char* GetTeamName()
+{
+	return "Negaahe No+";
+}
+
+DLL_EXPORT int GetCurAction()
+{
+	return CurAction;
+}
+
+//Only Used by CsBot Rescue Platform
+DLL_EXPORT int GetTeleport()
+{
+	return Teleport;
+}
+
+//Only Used by CsBot Rescue Platform
+DLL_EXPORT void SetSuperObj(int X, int Y, int num)
+{
+	SuperObj_X = X;
+	SuperObj_Y = Y;
+	SuperObj_Num = num;
+}
+//Only Used by CsBot Rescue Platform
+DLL_EXPORT void GetSuperObj(int *X, int *Y, int *num)
+{
+	*X = SuperObj_X;
+	*Y = SuperObj_Y;
+	*num = SuperObj_Num;
+}
+
+#endif CSBOT_REAL
+
+DLL_EXPORT void SetDataAI(volatile int* packet, volatile int *AI_IN)
+{
+
+	int sum = 0;
+
+	US_Front = AI_IN[0]; packet[0] = US_Front; sum += US_Front;
+	US_Left = AI_IN[1]; packet[1] = US_Left; sum += US_Left;
+	US_Right = AI_IN[2]; packet[2] = US_Right; sum += US_Right;
+	CSLeft_R = AI_IN[3]; packet[3] = CSLeft_R; sum += CSLeft_R;
+	CSLeft_G = AI_IN[4]; packet[4] = CSLeft_G; sum += CSLeft_G;
+	CSLeft_B = AI_IN[5]; packet[5] = CSLeft_B; sum += CSLeft_B;
+	CSRight_R = AI_IN[6]; packet[6] = CSRight_R; sum += CSRight_R;
+	CSRight_G = AI_IN[7]; packet[7] = CSRight_G; sum += CSRight_G;
+	CSRight_B = AI_IN[8]; packet[8] = CSRight_B; sum += CSRight_B;
+	PositionX = AI_IN[9]; packet[9] = PositionX; sum += PositionX;
+	PositionY = AI_IN[10]; packet[10] = PositionY; sum += PositionY;
+	TM_State = AI_IN[11]; packet[11] = TM_State; sum += TM_State;
+	Compass = AI_IN[12]; packet[12] = Compass; sum += Compass;
+	Time = AI_IN[13]; packet[13] = Time; sum += Time;
+	packet[14] = sum;
+
+}
+DLL_EXPORT void GetCommand(int *AI_OUT)
+{
+	AI_OUT[0] = WheelLeft;
+	AI_OUT[1] = WheelRight;
+	AI_OUT[2] = LED_1;
+	AI_OUT[3] = MyState;
+}
+
+boolean trump()
+{
+	for (int i = 0; i < trapnum; i++)
+	{
+		if (trax[i] - 50 < px && px < trax[i] + 50 && tray[i] - 50 < py && py < tray[i] + 50 && trapzone == 0)
+		{
+
+			return true;
+		}
+	}
+	return false;
+}
+boolean deposit()
+{
+	if ((red >= 1 && cyan >= 1 && black >= 1) || (red + cyan + black + pink == 6) || (pink > 0 && red + black + cyan + pink == 6))
+		return true;
+	else
+		return false;
+}
+boolean deposit2()
+{
+	if ((red > 1 && cyan > 1 && black > 1) || (red + cyan + black + pink == 6) || (pink > 0 && red + black + cyan + pink == 6))
+		return true;
+	else
+		return false;
+}
+boolean OutsideTrapcolorR()
+{
+	if ((CSRight_R>180 && CSRight_R<250 && CSRight_G>190 && CSRight_B>20 && CSRight_B<70))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean OutsideTrapcolorL()
+{
+	if ((CSLeft_R>180 && CSLeft_R<250 && CSLeft_G>190 && CSLeft_B<20 && CSLeft_B<70))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean OutsideTrapcolorB()
+{
+	if ((CSLeft_R>190 && CSLeft_R<250 && CSLeft_G>200 && CSLeft_B<20 && CSLeft_B<70)
+		|| (CSRight_R>190 && CSRight_R<250 && CSRight_G>200 && CSRight_B>20 && CSRight_B<70))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean InsideTrapcolor()
+{
+	if ((CSRight_R > 40 && CSRight_R<65 && CSRight_G>80 && CSRight_G<105 && CSRight_B>215 && CSRight_B<235)
+		|| (CSLeft_R > 40 && CSLeft_R<65 && CSLeft_G>80 && CSLeft_G<105 && CSLeft_B>215 && CSLeft_B<235))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean special()
+{
+	if ((CSLeft_R < 43 + 7 && CSLeft_R > 37 - 7 && CSLeft_G < 158 + 7 && CSLeft_G > 138 - 7 && CSLeft_B > 255 - 7
+		&& CSRight_R < 43 + 7 && CSRight_R > 37 - 7 && CSRight_G < 158 + 7 && CSRight_G > 138 - 7 && CSRight_B > 255 - 7))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean Blackcolor()
+{
+	if ((CSLeft_R>20 && CSLeft_R<80 && CSLeft_G>20 && CSLeft_G<80 && CSLeft_B>20 && CSLeft_B<80) || (CSRight_R>20 && CSRight_R<80 && CSRight_G>20 && CSRight_G<80 && CSRight_B>20 && CSRight_B < 80))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean Cyancolor()
+{
+	if ((CSRight_R>10 && CSRight_R<65 && CSRight_G>240 && CSRight_B>240) || (CSLeft_R>10 && CSLeft_R<65 && CSLeft_G>240 && CSLeft_B>240))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean Redcolor()
+{
+	if ((CSLeft_R>220 && CSLeft_G>20 && CSLeft_G<45 && CSLeft_B>20 && CSLeft_B<45) || (CSRight_R>220 && CSRight_G>20 && CSRight_G<45 && CSRight_B>20 && CSRight_B<45))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean bahbah(int zavie)
+{
+	//printf("tabe bah bah");
+	int min = 0;
+	int max = 0;
+	int baze = 20; // avaz shavad
+	int ekhz = 0; ////////// ekhtelaf zavie
+	min = zavie - baze;
+	max = zavie + baze;
+	if (min < 0)
+		min = min + 360;
+	if (min > 360)
+		min = min - 360;
+	if (max < 0)
+		max = max + 360;
+	if (max > 360)
+		max = max - 360;
+	//zamani ke fasele ba hadaf kamtar az 5 position bud
+	if (abs(PositionX - sx) < 5 && abs(PositionY - sy) < 5)
+	{
+		//printf("vardashtan 1");
+		//vaghti dar hale bardashtane ganj hasti 
+		//hame chiz sefr shavad (rojoo shavad be takhte)
+		sy = 0;
+		sx = 0;
+		base = 0;
+		WheelLeft = 0;
+		WheelRight = 0;
+		LED_1 = 1;
+		pink++;
+		Duration = 50;
+		tmo = 200;
+	}
+	else if (abs(PositionX - sx2) < 5 && abs(PositionY - sy2) < 5)
+	{
+		//printf("vardashtan 2");
+		//vaghti dar hale bardashtane ganj hasti 
+		//hame chiz sefr shavad 
+		sy2 = 0;
+		sx2 = 0;
+		base = 0;
+		WheelLeft = 0;
+		WheelRight = 0;
+		LED_1 = 1;
+		pink++;
+		Duration = 50;
+		tmo = 200;
+		nargil = 0;
+	}
+	else
+	{
+
+		if (max > min)
+		{
+			if (Compass > min && Compass < max)
+			{
+				if (lajan == 1)
+				{
+					WheelLeft = 5;
+					WheelRight = 5;
+					LED_1 = 0;
+					return true;
+				}
+				else if ((px > 150 && px < 210) && ((py > 180 && py < 230) || (py > 40 && py < 90)))
+				{
+					WheelLeft = 4;
+					WheelRight = 4;
+					LED_1 = 0;
+					return true;
+				}
+				else
+				{
+					WheelLeft = 4;
+					WheelRight = 4;
+					LED_1 = 0;
+					return true;
+				}
+
+			}
+		}
+
+		else
+		{
+			if (min < Compass || Compass < max)
+			{
+				if (lajan == 1)
+				{
+					WheelLeft = 5;
+					WheelRight = 5;
+					LED_1 = 0;
+					return true;
+				}
+				else if ((px > 150 && px < 210) && ((py > 180 && py < 230) || (py > 40 && py < 90)))
+				{
+					WheelLeft = 4;
+					WheelRight = 4;
+					LED_1 = 0;
+					return true;
+				}
+				else
+				{
+
+					WheelLeft = 4;
+					WheelRight = 4;
+					LED_1 = 0;
+					return true;
+				}
+			}
+		}
+		ekhz = Compass - zavie;
+		if (ekhz < 0)
+		{
+			ekhz = ekhz + 360;
+		}
+		if (ekhz > 360)
+		{
+			ekhz = ekhz - 360;
+		}
+		if (ekhz < 180)
+		{
+			if (lajan == 1)
+			{
+				WheelLeft = 5;
+				WheelRight = -5;
+				LED_1 = 0;
+			}
+			else if (ekhz < 60)
+			{
+				WheelLeft = 5;
+				WheelRight = 3;
+				LED_1 = 0;
+			}
+			else
+			{
+				WheelLeft = 4;
+				WheelRight = -3;
+				LED_1 = 0;
+			}
+		}
+		else
+		{
+			if (lajan == 1)
+			{
+				WheelLeft = -5;
+				WheelRight = 5;
+				LED_1 = 0;
+			}
+			else if (ekhz > 300)
+			{
+				WheelLeft = 3;
+				WheelRight = 5;
+				LED_1 = 0;
+			}
+			else
+			{
+				WheelLeft = -3;
+				WheelRight = 4;
+				LED_1 = 0;
+			}
+		}
+	}
+}
+boolean markerc()
+{
+	if (CSLeft_R > 103 - 7 && CSLeft_R < 103 + 7 && CSLeft_G > 47 - 7 && CSLeft_G < 47 + 7 && CSLeft_B < 200 + 7 && CSLeft_B > 200 - 7
+		&& CSRight_R > 103 - 7 && CSRight_R < 103 + 7 && CSRight_G > 47 - 7 && CSRight_G < 47 + 7 && CSRight_B < 200 + 7 && CSRight_B > 200 - 7)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean dipositc()
+{
+	if (CSLeft_R > 180 && CSLeft_R < 230 && CSLeft_G > 110 && CSLeft_G < 170 && CSLeft_B > 90 && CSLeft_B < 130
+		&& CSRight_R > 180 && CSRight_R < 230 && CSRight_G > 110 && CSRight_G < 170 && CSRight_B > 90 && CSRight_B < 130)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean green()
+{
+	if (CSLeft_R > 130 - 7 && CSLeft_R < 150 + 7 && CSLeft_G > 193 - 7 && CSLeft_G < 220 + 7 && CSLeft_B < 151 + 7 && CSLeft_B > 131 - 7
+		&& CSRight_R > 130 - 7 && CSRight_R < 150 + 7 && CSRight_G > 193 - 7 && CSRight_G < 220 + 7 && CSRight_B < 151 + 7 && CSRight_B > 131 - 7)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean markerzz()
+{
+	if (abs(markerz - Compass) < 10)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+void printdata()
+{
+	printf("trapnum = %d\n", trapnum);
+	for (int i = 0; i < trapnum; i++)
+	{
+		printf("row %d -> trax= %d, tray= %d\n", i, trax[i], tray[i]);
+	}
+}
+void bikhialsuper()
+{
+	if (((US_Left < 10) || (US_Right < 10) || (US_Front < 10)) && (tik == 0))
+	{
+		tik = 32;
+	}
+}
+void bikhialtrap()
+{
+	if ((((OutsideTrapcolorB()) || (OutsideTrapcolorL()) || (OutsideTrapcolorR())) && (tik == 0)) && (deposit()))
+	{
+		tik = 25;
+	}
+}
+void bikhialstep()
+{
+	if (CSLeft_R > 192 - 7 && CSLeft_R < 235 + 7 && CSLeft_G > 114 - 7 && CSLeft_G < 171 + 7 && CSLeft_B < 123 + 7 && CSLeft_B > 70 - 7
+		&& CSRight_R > 192 - 7 && CSRight_R < 235 + 7 && CSRight_G > 114 - 7 && CSRight_G < 171 + 7 && CSRight_B < 123 + 7 && CSRight_B > 70 - 7 /*&& deposit()*/)
+	{
+		tik = 50;
+	}
+}
+void outsite()
+{
+	if (dipositc() && red + black + cyan == 0)
+	{
+		out = 1;
+	}
+}
+
+void Game0()
+{
+	//////////////////////////////////////////////////avale steppppppp deposit D1///////////////////////////////////////////////////
+	//if ((special() && abi == 0 && deposit()) || (green() && abi == 0 && red > 0 && black > 0) || (special() && abi == 0 && red > 0 && black > 0))
+	//{
+	//	abi = 1;
+	//}
+	/* printf("marker=%d\n", marker);*/
+	//printf("tiemr =%d\n", zamin1);
+	/*printf("timer= %d\n", timer);*/
+	//markerzz();
+	if (timer >= 0)
+	{
+		timer++;
+	}
+	int a = 0;
+	if (SuperDuration > 0)
+	{
+		SuperDuration--;
+	}
+	else if (Duration > 0)
+	{
+		Duration--;
+	}
+	//start world 1
+
+	///////////////////////////////////////////////////////////////////////////////////////// DEPOSITE HA /////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////marhale 1 deposit RGB//////////////////
+	else if (dipositc() && deposit() && timer < 640)
+	{
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		red = 0;
+		black = 0;
+		cyan = 0;
+		LED_1 = 2;
+		turn = 0;
+		jaleb = 1;
+		marker = 0;
+		taghib = 0;
+		timer = 0;
+	}
+	//////////////////////marhale 3 deposit//////////////////
+	else if (jaleb == 1)
+	{
+		WheelLeft = -4;
+		WheelRight = -4;
+		Duration = 5;
+		LED_1 = 0;
+		jaleb = 2;
+	}
+	//////////////////////marhale 4 deposit//////////////////
+	else if (jaleb == 2)
+	{
+		WheelLeft = 4;
+		WheelRight = -4;
+		Duration = 5;
+		LED_1 = 0;
+		jaleb = 0;
+	}
+	//diposite yek sensori left RGB
+	else if (CSLeft_R > 180 && CSLeft_R < 250 && CSLeft_G > 90 && CSLeft_G < 160 && CSLeft_B < 10 && red > 0 && black > 0 && cyan > 0 && timer < 640)
+	{
+		LED_1 = 1;
+		WheelLeft = 0;
+		WheelRight = 2;
+	}
+	//diposite yek sensori right RGB 
+	else if (CSRight_R > 180 && CSRight_R < 250 && CSRight_G > 90 && CSRight_G < 160 && CSRight_B < 10 && red > 0 && black > 0 && cyan > 0 && timer < 640)
+	{
+		LED_1 = 1;
+		WheelLeft = 2;
+		WheelRight = 0;
+	}
+	//////////////////////marhale 1 deposit //////////////////
+	else if (dipositc() && red + black + cyan > 0 && timer > 640)
+	{
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		red = 0;
+		black = 0;
+		cyan = 0;
+		LED_1 = 2;
+		turn = 0;
+		jaleb = 1;
+		marker = 0;
+		taghib = 0;
+		timer = 0;
+
+	}
+	//////////////////////marhale 3 deposit//////////////////
+	else if (jaleb == 1)
+	{
+		WheelLeft = -4;
+		WheelRight = -4;
+		Duration = 5;
+		LED_1 = 0;
+		jaleb = 2;
+	}
+	//////////////////////marhale 4 deposit//////////////////
+	else if (jaleb == 2)
+	{
+		WheelLeft = 4;
+		WheelRight = -4;
+		Duration = 5;
+		LED_1 = 0;
+		jaleb = 0;
+	}
+	//diposite yek sensori left 
+	else if (CSLeft_R > 180 && CSLeft_R < 250 && CSLeft_G > 90 && CSLeft_G < 160 && CSLeft_B < 10 && red + black + cyan > 0 && timer > 640)
+	{
+		LED_1 = 1;
+		WheelLeft = 0;
+		WheelRight = 2;
+	}
+	//diposite yek sensori right
+	else if (CSRight_R > 180 && CSRight_R < 250 && CSRight_G > 90 && CSRight_G < 160 && CSRight_B < 10 && red > 0 && black > 0 && cyan > 0 && timer > 640)
+	{
+		LED_1 = 1;
+		WheelLeft = 2;
+		WheelRight = 0;
+	}
+	//
+	/////teleport//////
+	else if (Time >= 180 && Time <= 187)
+	{
+		Teleport = 1;
+		red = 0;
+		cyan = 0;
+		black = 0;
+		WheelLeft = 0;
+		WheelRight = 0;
+		jaleb = 0;
+	}
+	//// 30 sanye akahr /////
+	else if (dipositc() && red + black + cyan > 0 && Time > 150)
+	{
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		red = 0;
+		black = 0;
+		cyan = 0;
+		LED_1 = 2;
+		turn = 0;
+		jaleb = 1;
+		marker = 0;
+		taghib = 0;
+		timer = 0;
+	}
+	///////trap/////
+	else if (OutsideTrapcolorR() && red + black + cyan>0)
+	{
+		WheelLeft = -5;
+		WheelRight = -3;
+	}
+	else if (OutsideTrapcolorL() && red + black + cyan>0)
+	{
+		WheelLeft = -3;
+		WheelRight = -5;
+	}
+	else if (OutsideTrapcolorB() && red + black + cyan>0)
+	{
+		WheelLeft = -5;
+		WheelRight = -3;
+	}
+	else if (taghib == 1 && OutsideTrapcolorR())
+	{
+		taghib = 0;
+		WheelLeft = -2;
+		WheelRight = -1;
+	}
+	//sanad ke kar nemikone(kar kard)
+	/////step marker 1e/////
+	else if (marker == 1 && US_Front < 10)
+	{
+		marker = 0;
+	}
+	else if (markerzz() && marker == 1)
+	{
+		WheelLeft = 2;
+		WheelRight = 2;
+	}
+	////////////////RGB/////////////////
+	else if ((red + black + cyan == 6 && red > 0 && black > 0 && cyan > 0 && markerc() && marker == 0 && timer < 640) && (Compass <80 || Compass >100))
+	{
+		Duration = 10;
+		WheelLeft = 2;
+		WheelRight = 2;
+		marker = 1;
+	}
+	////////////////NORMAL//////////////
+	else if ((red + black + cyan > 2 && markerc() && marker == 0 && timer > 640) && (Compass <80 || Compass >100))
+	{
+		Duration = 10;
+		WheelLeft = 2;
+		WheelRight = 2;
+		marker = 1;
+	}
+	// charkhesh be zavie //
+	else if ((marker == 1) && (Compass<90 || Compass > 270))
+	{
+		WheelLeft = -2;
+		WheelRight = 2;
+	}
+	else if (marker == 1 && Compass > 90 && Compass < 270)
+	{
+		WheelLeft = 2;
+		WheelRight = -2;
+	}
+	/*else if (marker == 2 && )*/
+	//////step deposite D1
+	//else if (abi == 1 && turn == 0)
+	//{
+	//	WheelLeft = 5;
+	//	WheelRight = 5;
+	//	Duration = 13;
+	//	turn = 1;
+	//}
+	//else if (abi == 1 && turn == 1 && Compass > 80 && Compass < 100)
+	//{
+	//	WheelLeft = 2;
+	//	WheelRight = 2;
+	//	abi = 0;
+	//}
+
+	//else if (abi == 1 && turn == 1 && (Compass < 80 || Compass > 100))
+	//{
+	//	WheelLeft = -1;
+	//	WheelRight = 1;
+	//}
+	//////////
+	//else if (US_Front < 10 && turn == 1)
+	//{
+	//	turn = 2;
+	//}
+	//else if (zamin1 >= 100)
+	//{
+	//	turn = 0;
+	//	abi = 0;
+	//	zamin1 = 0;
+	//}
+	//else if (turn == 2 && Compass > 160 && Compass < 183 && zamin1 < 100)
+	//{
+	//	zamin1++;
+	//	WheelLeft = 2;
+	//	WheelRight = 2;
+	//}
+
+	//else if (turn == 2 && (Compass < 160 || Compass > 183))
+	//{
+	//	zamin1++;
+	//	WheelLeft = -1;
+	//	WheelRight = 1;
+	//}
+
+	/////////ganj RGB/////////
+	else if (Redcolor() && red + black + cyan<6 && red<2 && timer < 640)
+	{
+		red++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	else if (Blackcolor() && red + black + cyan<6 && black<2 && timer < 640)
+	{
+		black++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	else if (Cyancolor() && red + black + cyan<6 && cyan<2 && timer < 640)
+	{
+		cyan++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	/////////ganj mamoli/////////
+	else if (Redcolor() && red + black + cyan<6 && timer > 640)
+	{
+		red++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	else if (Blackcolor() && red + black + cyan<6 && timer > 640)
+	{
+		black++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	else if (Cyancolor() && red + black + cyan<6 && timer > 640)
+	{
+		cyan++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	///// taghib RGB //// 
+	else if (red + black + cyan == 6 && taghib == 0 && timer < 640)
+	{
+		taghib = 1;
+	}
+	///// taghib MAMOLI /// 
+	else if (red + black + cyan > 0 && taghib == 0 && timer > 640)
+	{
+		taghib = 1;
+	}
+	//////////////////////////////////////////////////////////////////TAGHIB/////////////////////////////////////////////////////////////////////////
+	// az inja
+	// shorooesh kon
+	//bra left
+	//avale time
+	//else if (US_Left < 20 && followL == 1 && taghib == 1 )
+	//{
+	//	followR = -1;
+	//	followL = 2;
+	//}
+	////agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	//else if (US_Front < 18 && followL == 2 && taghib == 1)
+	//{
+	//	WheelLeft = -2;
+	//	WheelRight = -5;
+
+	//}
+	////taghib
+	////agar az divare chap door shodi, bargard be samtesh
+	//else if (US_Left > 20 && followL == 2 && taghib == 1)
+	//{
+	//	WheelLeft = 2;
+	//	WheelRight = 4;
+	//}
+	////agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	//else if (US_Left < 20 && followL == 2 && taghib == 1)
+	//{
+	//	WheelLeft = 4;
+	//	WheelRight = 2;
+	//}
+	// az inja
+	// shorooesh kon
+	//bra right
+	else if (US_Right < 20 && followR == 1 && taghib == 1)
+	{
+		followR = 2;
+		followL = -1;
+	}
+	//agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	else if (US_Front < 15 && followR == 2 && taghib == 1)
+	{
+		WheelLeft = -5;
+		WheelRight = -2;
+	}
+	//taghib
+	//agar az divare chap door shodi, bargard be samtesh
+	else if (US_Right > 12 && followR == 2 && taghib == 1)
+	{
+		WheelLeft = 4;
+		WheelRight = 2;
+	}
+	//agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	else if (US_Right < 12 && followR == 2 && taghib == 1)
+	{
+		WheelLeft = 2;
+		WheelRight = 4;
+	}
+
+	//wall 
+	else if (US_Right < 13 && US_Left < 13 && US_Front < 13)
+	{
+		WheelLeft = 3;
+		WheelRight = -3;
+		LED_1 = 2;
+	}
+	else if (US_Front < 13 && US_Left < 13)
+	{
+		WheelLeft = 2;
+		WheelRight = 0;
+		LED_1 = 2;
+	}
+	else if (US_Front < 13 && US_Right < 13)
+	{
+		WheelLeft = 0;
+		WheelRight = 2;
+		LED_1 = 2;
+	}
+	else if (US_Front < 13)
+	{
+		WheelLeft = -2;
+		WheelRight = 0;
+		LED_1 = 2;
+	}
+	else if (US_Left < 13)
+	{
+		WheelLeft = 2;
+		WheelRight = -2;
+		LED_1 = 2;
+	}
+	else if (US_Right < 13)
+	{
+		WheelLeft = -2;
+		WheelRight = 2;
+		LED_1 = 2;
+	}
+	//
+	////run/////
+	else
+	{
+		WheelLeft = 4;
+		WheelRight = 4;
+		LED_1 = 0;
+	}
+}
+
+int SOZ2(int YUP, int YDN, int XUP, int XDN)
+{
+	if (py < YUP && py > YDN && px < XUP && px > XDN && sy2 < YUP && sy2 > YDN && sx2 < XUP && sx2 > XDN && base2 == 0)
+	{
+		base2 = 1;
+		tik = 0;
+	}
+}
+
+int SOZ(int YUP, int YDN, int XUP, int XDN)
+{
+	if (py < YUP && py > YDN && px < XUP && px > XDN && sy < YUP && sy > YDN && sx < XUP && sx > XDN && base == 0)
+	{
+		base = 1;
+		tik = 0;
+	}
+}
+int fis(int px1, int px2, int py1, int py2)
+{
+	int fisbackup = ((px1 - px2)*(px1 - px2)) + ((py1 - py2)*(py1 - py2));
+	int fisaqores = sqrt(fisbackup);
+	return fisaqores;
+}
+int mazmaz(int pX, int pY)
+{
+	double z = atan2((pY - PositionY), (pX - PositionX));
+	/////////////////////////////////TABDILE RADIAN BE COMPASSSSS/////////////////////////////////
+	z = (z * 180 / 3.14) - 90;
+	if (z > 360)
+		z = z - 360;
+	if (z < 0)
+		z = z + 360;
+	return (int)z;
+}
+int objy()
+{
+	golab = 2 - black;
+	golar = 2 - red;
+	golac = 2 - cyan;
+	//raftan be samt object
+	if (golab + golar + golac>0 && tik == 0)
+	{
+		if (golab > 0)
+		{
+			fasleb = 999999;
+			for (int i = 0; i < obbnum; i++)
+			{
+				if (fis(px, bbo[0][i], py, bbo[1][i]) < fasleb && bbo[2][i] == 1 && bbo[3][i] == 0 && tik == 0)
+				{
+					fasleb = fis(px, bbo[0][i], py, bbo[1][i]);
+					kb = i;
+					fasleondex = bbo[2][i];
+					//printf("salam");
+				}
+			}
+		}
+		if (golar > 0)
+		{
+			fasler = 999999;
+			for (int i = 0; i < obbnum; i++)
+			{
+				if (fis(px, bbo[0][i], py, bbo[1][i]) < fasler && bbo[2][i] == 2 && bbo[3][i] == 0 && tik == 0)
+				{
+					fasler = fis(px, bbo[0][i], py, bbo[1][i]);
+					kr = i;
+					fasleondex = bbo[2][i];
+				}
+			}
+		}
+		if (golac > 0)
+		{
+			faslec = 999999;
+			for (int i = 0; i < obbnum; i++)
+			{
+				if (fis(px, bbo[0][i], py, bbo[1][i]) < faslec && bbo[2][i] == 3 && bbo[3][i] == 0 && tik == 0)
+				{
+					faslec = fis(px, bbo[0][i], py, bbo[1][i]);
+					kc = i;
+					fasleondex = bbo[2][i];
+				}
+			}
+		}
+	}
+}
+int nazdiktarin()
+{
+	if (fasleb < fasler && fasleb< faslec)
+	{
+		kam = 1;
+	}
+	if (fasler < fasleb && fasler< faslec)
+	{
+		kam = 2;
+	}
+	if (faslec < fasleb && faslec< fasler)
+	{
+		kam = 3;
+	}
+}
+//1 = black, 2 = red, 3 = cyan
+int abo()
+{
+
+	if (Blackcolor() || Cyancolor() || Redcolor())
+	{
+		boolean kamtar = false;
+		for (int i = 0; i<obbnum; i++)
+		{
+			//checking distance 
+			if (fis(px, bbo[0][i], py, bbo[1][i])<20)
+			{
+				kamtar = true;
+			}
+		}
+		if (!kamtar)
+		{
+			//rang object baraye backup
+			if (Blackcolor())
+			{
+				cbo = 1;
+			}
+			else if (Redcolor())
+			{
+				cbo = 2;
+			}
+			else if (Cyancolor())
+			{
+				cbo = 3;
+			}
+			//adding a nre depostin position
+			bbo[0][obbnum] = px;
+			bbo[1][obbnum] = py;
+			bbo[2][obbnum] = cbo;
+			bbo[3][obbnum] = 0;
+			obbnum++;
+			tik = 5;
+		}
+	}
+}
+int fbtg()
+{
+	if ((OutsideTrapcolorR()) || (OutsideTrapcolorL()))
+	{
+		boolean kamtar = false;
+		for (int i = 0; i<trapnum; i++)
+		{
+			//checking distance 
+			if (fis(px, trax[i], py, tray[i])<120)
+			{
+				kamtar = true;
+			}
+		}
+		if (!kamtar)
+		{
+			//adding a nre depostin position
+			trax[trapnum] = px;
+			tray[trapnum] = py;
+			trapnum++;
+		}
+	}
+}
+
+int fbdg()
+{
+	if (dipositc())
+	{
+		boolean kamtar = false;
+		for (int i = 0; i<depositnum; i++)
+		{
+			//checking distance 
+			if (fis(px, depox[i], py, depoy[i])<120)
+			{
+				kamtar = true;
+			}
+		}
+		if (!kamtar)
+		{
+			//adding a nre depostin position
+			depox[depositnum] = px;
+			depoy[depositnum] = py;
+			depositnum++;
+		}
+	}
+}
+void printobjectarray()
+{
+	printf("*******************************\n");
+	printf("OBJECT ARRAY: \n");
+	for (int i = 0; i < obbnum; i++)
+	{
+		printf("row: %d\tX: %d\tY: %d\tColor: %d\tColect: %d\n", i, bbo[0][i], bbo[1][i], bbo[2][i], bbo[3][i]);
+
+	}
+}
+void Game1()
+{
+	//printf("%d \n",Time);
+	/*printobjectarray();
+	printf("kb = %d\n\n -- kr = %d\n\n-- kc = %d\n\n", kb, kr, kc);
+	printf("kam=%d\n\n", kam);
+	printf("fasleb = %d\n\n -- fasler = %d\n\n-- faslec = %d\n\n", fasleb, fasler, faslec);*/
+	/*printf("sx=%d\n", sx);
+	printf("sy=%d", sy);
+	printf("py=%d\n\n", py);
+	printf("step=%d\n\n", step);*/
+	printf(" kb = %d / kr = %d / kc = %d / kam = %d / hellothere1 2 3 = %d %d %d / \n", kb, kr, kc, kam, hellothere1, hellothere2 ,hellothere3);
+	//ehtiat bein step ha
+	bikhialsuper();
+	bikhialtrap();
+	bikhialstep();
+	int zavie;
+
+	//SOZ 
+	SOZ(270, 0, 360, 0);
+	SOZ2(270, 0, 360, 0);
+
+	//fasle ba deposit ghabli va backup giri
+	fbdg();
+
+	//fasle ba trap ghabli va backup giri
+	fbtg();
+	//backup giry objecgt
+	abo();
+	//
+	kr = 0;
+	kb = 0;
+	kc = 0;
+	objy();
+	//
+	nazdiktarin();
+	//hellothere
+	if ((black < 2 && red + pink + black + cyan < 6) && 
+		((py < 182 && py > 149 && px < 53 && px > 6) ||
+		(py < 194 && py > 49 && px < 200 && px > 156) ||
+		(py < 181 && py > 145 && px < 313 && px > 267)))
+	{
+		hellothere1 = 1;
+	}
+	else
+	{
+		hellothere1 = 0;
+	}
+	if ((cyan < 2 && red + pink + black + cyan < 6) &&
+		((px > 209 && px < 360 && py > 232 && py < 270) ||
+		(px > 0 && px < 120 && py > 0 && py < 60)))
+	{
+		hellothere2 = 1;
+	}
+	else
+	{
+		hellothere2 = 0;
+	}
+	if ((red < 2 && red + pink + black + cyan < 6) && ((px > 0 && px < 150 && py < 270 && py > 230) || (px < 360 && px > 232 && py > 0 && py < 60)))
+	{
+		hellothere3 = 1;
+	}
+	else
+	{
+		hellothere3 = 0;
+	}
+	//lajan
+	if (((CSRight_R > 120 && CSRight_R < 180 && CSRight_G>120 && CSRight_G<180 && CSRight_B>180 && CSRight_B<230)
+		|| (CSLeft_R>120 && CSLeft_R< 180 && CSLeft_G>120 && CSLeft_G<180 && CSLeft_B>180 && CSLeft_B < 230)))
+	{
+		lajan = 1;
+	}
+	else
+	{
+		lajan = 0;
+	}
+	if (US_Front < 10)
+	{
+		sismas = 0;
+		ix = 0;
+		iy = 0;
+		step = 0;
+	}
+	if (red + black + cyan + pink == 6)
+	{
+		sismas = 0;
+		ix = 0;
+		iy = 0;
+		step = 0;
+	}
+	if (lajan == 1)
+	{
+		sismas = 0;
+		ix = 0;
+		iy = 0;
+		step = 0;
+	}
+	//baraye koore radioei ino tozih midim too tdp
+	if (PositionX != 0 && PositionY != 0)
+	{
+		px = PositionX;
+		py = PositionY;
+	}
+	else
+	{
+		PositionX = px;
+		PositionY = py;
+	}
+
+	//trap slowmode 
+	if (trump() && black + red + cyan + pink > 0)
+	{
+		slowmode = 1;
+	}
+	else
+	{
+		slowmode = 0;
+	}
+
+	//az zamin naro biroon 
+	if (px < 25)
+	{
+		slowmode2 = 1;
+	}
+	else if (px > 335)
+	{
+		slowmode2 = 1;
+	}
+	else if (py > 245)
+	{
+		slowmode2 = 1;
+	}
+	else if (py < 25)
+	{
+		slowmode2 = 1;
+	}
+	else
+	{
+		slowmode2 = 0;
+	}
+	//#na
+	//iran mishe
+	//damagh mikonam
+	//golabi=object por arze
+	//ham arze khodemonim ham taghazaiem
+	//noghte delkhah ke alan  super obj hastesh
+	if (SuperObj_X > 0 && SuperObj_Y > 0 && sx == 0 && sy == 0)
+	{
+		// backup giri az x va y super obj
+		sx = SuperObj_X;
+		sy = SuperObj_Y;
+		nargil = 1;
+	}
+	else if (SuperObj_X > 0 && SuperObj_Y > 0 && sx != 0 && sy != 0 && nargil == 0)
+	{
+		sx2 = sx;
+		sy2 = sy;
+		hey = 1;
+	}
+	if (hey == 1)
+	{
+		sx = SuperObj_X;
+		sy = SuperObj_Y;
+		nargil = 1;
+		hey = 0;
+	}
+	//tik & duration
+	if (tik > 0)
+	{
+		tik--;
+	}
+	if (SuperDuration > 0)
+	{
+		SuperDuration--;
+	}
+	else if (Duration > 0)
+	{
+		Duration--;
+	}
+
+	//sefr kardam base baraye dashtan pink
+	else if (pink == 1 && base == 1 && ((sx == 0 && sx2 == 0) || (sx == 0)))
+	{
+		base = 0;
+	}
+	else if (pink == 1 && base2 == 1 && ((sx == 0 && sx2 == 0) || (sx2 == 0)))
+	{
+		base2 = 0;
+	}
+
+	//position left 
+	else if (PositionX < 10 && PositionX >1 && Compass > 90 && Compass < 180)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = 1;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+	}
+	else if (PositionX < 10 && PositionX >1 && Compass < 90)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+		else
+		{
+			WheelLeft = 1;
+			WheelRight = -1;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+	}
+	//position right
+	else if (PositionX > 350 && Compass > 270)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = 1;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+	}
+	else if (PositionX > 350 && Compass > 180 && Compass < 270)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+		else
+		{
+			WheelLeft = 1;
+			WheelRight = -1;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+
+		}
+	}
+	//position up
+	else if (PositionY > 260 && Compass < 90)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = 1;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+	}
+	else if (PositionY > 260 && Compass > 270)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+		else
+		{
+			WheelLeft = 1;
+			WheelRight = -1;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+	}
+	//position down
+	else if (PositionY < 10 && PositionY > 1 && Compass > 90 && Compass < 180)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+		else
+		{
+			WheelLeft = 1;
+			WheelRight = -1;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+	}
+	else if (PositionY < 10 && PositionY > 1 && Compass > 180 && Compass < 270)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+		else
+		{
+
+		}
+		{
+			WheelLeft = -1;
+			WheelRight = 1;
+			LED_1 = 2;
+			followR = 0;
+			followL = 0;
+		}
+	}
+
+	//follow wall 
+	/*else if (tik > 0 && step1 > -1)
+	{
+	//////////////////////////////////////////////////////////////////TAGHIB/////////////////////////////////////////////////////////////////////////
+	// az inja
+	// shorooesh kon
+	//bra left
+	if (US_Left < 18 && followL == 1)
+	{
+	followR = -1;
+	followL = 2;
+	}
+	//agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	else if (US_Front < 10 && followL == 2)
+	{
+	WheelLeft = -2;
+	WheelRight = -5;
+
+	}
+	//taghib
+	//agar az divare chap door shodi, bargard be samtesh
+	else if (US_Left > 18 && followL == 2)
+	{
+	WheelLeft = 2;
+	WheelRight = 4;
+	}
+	//agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	else if (US_Left < 18 && followL == 2)
+	{
+	WheelLeft = 4;
+	WheelRight = 2;
+	}
+	// az inja
+	// shorooesh kon
+	//bra right
+	else if (US_Right < 25 && followR == 1)
+	{
+	followR = 2;
+	followL = -1;
+	}
+	//agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	else if (US_Front < 10 && followR == 2)
+	{
+	WheelLeft = -5;
+	WheelRight = -2;
+	}
+	//taghib
+	//agar az divare chap door shodi, bargard be samtesh
+	else if (US_Right > 25 && followR == 2)
+	{
+	WheelLeft = 4;
+	WheelRight = 2;
+	}
+	//agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	else if (US_Right < 25 && followR == 2)
+	{
+	WheelLeft = 2;
+	WheelRight = 4;
+	}
+	}
+	{
+	//////////////////////////////////////////////////////////////////TAGHIB/////////////////////////////////////////////////////////////////////////
+	// az inja
+	// shorooesh kon
+	//bra left
+	if (US_Left < 10 && followL == 1 && poram == 1)
+	{
+	followR = -1;
+	followL = 2;
+	}
+	//agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	else if (US_Front < 10 && followL == 2 && poram == 1)
+	{
+	WheelLeft = -2;
+	WheelRight = -5;
+	}
+	//taghib
+	//agar az divare chap door shodi, bargard be samtesh
+	else if (US_Left > 10 && followL == 2 && poram == 1)
+	{
+	WheelLeft = 2;
+	WheelRight = 4;
+	}
+	//agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	else if (US_Left < 10 && followL == 2 && poram == 1)
+	{
+	WheelLeft = 4;
+	WheelRight = 2;
+	}
+	// az inja
+	// shorooesh kon
+	//bra right
+	else if (US_Right < 10 && followR == 1 && poram == 1)
+	{
+	followR = 2;
+	followL = -1;
+	}
+	//agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	else if (US_Front < 10 && followR == 2 && poram == 1)
+	{
+	WheelLeft = -5;
+	WheelRight = -2;
+	}
+	//taghib
+	//agar az divare chap door shodi, bargard be samtesh
+	else if (US_Right > 10 && followR == 2 && poram == 1)
+	{
+	WheelLeft = 4;
+	WheelRight = 2;
+	}
+	//agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	else if (US_Right < 10 && followR == 2 && poram == 1)
+	{
+	WheelLeft = 2;
+	WheelRight = 4;
+	}
+	}*/
+	//deposit
+	else if (dipositc() && ((deposit2()) || (red + black + cyan + pink > 0 && Time > 455)))
+	{
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		red = 0;
+		black = 0;
+		cyan = 0;
+		pink = 0;
+		LED_1 = 2;
+		jaleb = 1;
+		tmo = 200;
+		nargil = 0;
+	}
+
+	//marhale 2 deposit
+	else if (jaleb == 1)
+	{
+		WheelLeft = -4;
+		WheelRight = -4;
+		Duration = 10;
+		LED_1 = 0;
+		jaleb = 2;
+	}
+
+	//marhale 3 deposit
+	else if (jaleb == 2)
+	{
+		WheelLeft = 4;
+		WheelRight = -4;
+		Duration = 10;
+		LED_1 = 0;
+		jaleb = 0;
+	}
+
+	//tale
+	else if (OutsideTrapcolorR() && red + black + cyan + pink > 0)
+	{
+		sismas = 0;
+		ix = 0;
+		iy = 0;
+		step = 0;
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+		}
+		else
+		{
+			WheelLeft = -5;
+			WheelRight = -1;
+		}
+	}
+	else if (OutsideTrapcolorL() && red + black + cyan + pink > 0)
+	{
+		sismas = 0;
+		ix = 0;
+		iy = 0;
+		step = 0;
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+		}
+		else
+		{
+			WheelLeft = -2;
+			WheelRight = -5;
+		}
+	}
+	else if (OutsideTrapcolorB() && red + black + cyan + pink > 0)
+	{
+		sismas = 0;
+		ix = 0;
+		iy = 0;
+		step = 0;
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+		}
+		else
+		{
+			WheelLeft = -5;
+			WheelRight = -3;
+		}
+	}
+
+	//sefr kardan ganj ha bad az tale
+	else if (InsideTrapcolor())
+	{
+		red = 0;
+		black = 0;
+		cyan = 0;
+		pink = 0;
+	}
+
+	//check kardan sharayet dep baraye raftan deposit
+	else if (((red + black + cyan + pink > 0 && Time > 455) || (deposit2())) && depox[0]>0 && tik == 0)
+	{
+		int fasele = 999999;
+		int faseleindex = 0;
+		for (int i = 0; i < depositnum; i++)
+		{
+			if (fis(px, depox[i], py, depoy[i]) < fasele)
+			{
+				fasele = fis(px, depox[i], py, depoy[i]);
+				faseleindex = i;
+			}
+		}
+		if (depox[faseleindex]>0)
+		{
+			zavie = mazmaz(depox[faseleindex], depoy[faseleindex]);
+			bahbah(zavie);
+		}
+	}
+
+	//raftan va vardashtan super object
+	else if (sx > 0 && sy > 0 && tik == 0 && base == 1 && fis(px, sx, py, sy)<100 && tmo>0 && (black + red + cyan + pink < 6))
+	{
+		//printf("x1");
+		zavie = mazmaz(sx, sy);
+		bahbah(zavie);
+		tmo--;
+	}
+	//raftan va vardashtan super object2
+	else if (sx2 > 0 && sy2 > 0 && tik == 0 && base2 == 1 && fis(px, sx2, py, sy2)<100 && (black + red + cyan + pink < 6))
+	{
+		//printf("x2");
+		zavie = mazmaz(sx2, sy2);
+		bahbah(zavie);
+	}
+
+	//khali kardan ganj ha baraye naboodan zaman 
+	/*else if (Time > 465 && black + red + cyan + pink > 0)
+	{
+	zavie = mazmaz(315, 45);
+	bahbah(zavie);
+	}*/
+	else if (his == 1 && this == 0)
+	{
+		his = 0;
+	}
+	else if (his == 1)
+	{
+		this--;
+	}
+
+
+	//ganj 
+	else if ((Redcolor() && red + black + cyan < 5 && red < 1 && sy > 0) || (Redcolor() && red + black + cyan + pink < 6 && red < 2))
+	{
+		//borobaadi = 133;
+		red++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+		his = 1;
+		sismas = 1;
+		for (int i = 0; i < obbnum; i++)
+		{
+			if (bbo[2][i] == 2 && fis(px, bbo[0][i], py, bbo[1][i]<15) && bbo[3][i] == 0)
+			{
+				bbo[3][i] = 1;
+				break;
+			}
+		}
+		if (bbo[0][kr] + 10>px > bbo[0][kr] - 10 && bbo[1][kr] + 10 > py > bbo[1][kr] - 10)
+		{
+			kr = 0;
+		}
+	}
+	else if (Blackcolor() && red + black + cyan + pink < 6 && black < 2)
+	{
+		//borobaadi = 133;
+		black++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+		his = 1;
+		sismas = 1;
+		for (int i = 0; i < obbnum; i++)
+		{
+			if (bbo[2][i] == 1 && fis(px, bbo[0][i], py, bbo[1][i]<15) && bbo[3][i] == 0)
+			{
+				bbo[3][i] = 1;
+				break;
+			}
+		}
+		if (bbo[0][kb] + 10>px > bbo[0][kb] - 10 && bbo[1][kb] + 10 > py > bbo[1][kb] - 10)
+		{
+			kb = 0;
+		}
+	}
+	else if (Cyancolor() && red + black + cyan + pink < 6 && cyan < 2)
+	{
+		//borobaadi = 133;
+		cyan++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+		his = 1;
+		sismas = 1;
+		for (int i = 0; i < obbnum; i++)
+		{
+			if (bbo[2][i] == 3 && fis(px, bbo[0][i], py, bbo[1][i]<15) && bbo[3][i] == 0)
+			{
+				bbo[3][i] = 1;
+				break;
+			}
+		}
+		if (bbo[0][kc] + 10>px > bbo[0][kc] - 10 && bbo[1][kc] + 10 > py > bbo[1][kc] - 10)
+		{
+			kc = 0;
+		}
+	}
+	else if (((kb > 0)) && kam == 1 && bbo[3][kb] == 0 && borobaadi > 0)
+	{
+		zavie = mazmaz(bbo[0][kb], bbo[1][kb]);
+		bahbah(zavie);
+		borobaadi--;
+		if (bbo[3][kb] == 0 && borobaadi == 0)
+		{
+			bbo[3][kb] = 1;
+			borobaadi = 133;
+		}
+	}
+	else if (kb == 0 && black < 2 && red + pink + black + cyan < 6 && borobaadi > 0 && hellothere1 == 0)
+	{
+		borobaadi--;
+		if (fis(px, 35, py, 155) < fis(px, 285, py, 155) && fis(px, 35, py, 155) < fis(px, 180, py, 135))
+		{
+			zavie = mazmaz(35, 155);
+			bahbah(zavie);
+			if (abs(PositionX - 35) < 5 && abs(PositionY - 155))
+			{
+				hellothere1 = 1;
+				borobaadi = 133;
+			}
+		}
+		else if (fis(px, 285, py, 155) < fis(px, 35, py, 155) && fis(px, 285, py, 155) < fis(px, 180, py, 135))
+		{
+			zavie = mazmaz(285, 155);
+			bahbah(zavie);
+			if (abs(PositionX - 285) < 5 && abs(PositionY - 155))
+			{
+				hellothere1 = 1;
+				borobaadi = 133;
+			}
+		}
+		else
+		{
+			zavie = mazmaz(180, 135);
+			bahbah(zavie);
+			if (abs(PositionX - 180) < 5 && abs(PositionY - 135))
+			{
+				hellothere1 = 1;
+				borobaadi = 133;
+			}
+		}
+	}
+	else if (((kr > 0)) && kam == 2 && bbo[3][kr] == 0 && borobaadi > 0)
+	{
+		zavie = mazmaz(bbo[0][kr], bbo[1][kr]);
+		bahbah(zavie);
+		borobaadi--;
+		if (bbo[3][kr] == 0 && borobaadi == 0)
+		{
+			bbo[3][kr] = 1;
+			borobaadi = 133;
+		}
+	}
+	else if (kr == 0 && red < 2 && red + pink + black + cyan < 6 && borobaadi > 0 && hellothere2 == 0)
+	{
+		borobaadi--;
+		if (fis(px, 55, py, 251) < fis(px,300,py,35))
+		{
+			zavie = mazmaz(55, 251);
+			bahbah(zavie);
+			if (abs(PositionX - 55) < 5 && abs(PositionY - 251))
+			{
+				hellothere2 = 1;
+				borobaadi = 133;
+			}
+		}
+		else
+		{
+			zavie = mazmaz(300, 35);
+			bahbah(zavie);
+			if (abs(PositionX - 300) < 5 && abs(PositionY - 35))
+			{
+				hellothere2 = 1;
+				borobaadi = 133;
+			}
+		}
+	}
+	else if (((kc > 0)) && kam == 3 && bbo[3][kc] == 0 && borobaadi > 0)
+	{
+		zavie = mazmaz(bbo[0][kc], bbo[1][kc]);
+		bahbah(zavie);
+		borobaadi--;
+		if (bbo[3][kc] == 0 && borobaadi == 0)
+		{
+			bbo[3][kc] = 1;
+			borobaadi = 133;
+		}
+	}
+	else if (sismas == 1)
+	{
+		ix = px;
+		iy = py;
+		sismas = 0;
+		step = 0;
+	}
+	else if (kc == 0 && cyan < 2 && red + pink + black + cyan < 6 && borobaadi > 0 && hellothere3 == 0)
+	{
+		borobaadi--;
+		if (fis(px, 285, py, 245) < fis(px, 45, py, 30))
+		{
+			zavie = mazmaz(285, 245);
+			bahbah(zavie);
+			if (abs(PositionX - 285) < 5 && abs(PositionY - 245))
+			{
+				hellothere3 = 1;
+				borobaadi = 133;
+			}
+		}
+		else
+		{
+			zavie = mazmaz(45, 30);
+			bahbah(zavie);
+			if (abs(PositionX - 45) < 5 && abs(PositionY - 30))
+			{
+				hellothere3 = 1;
+				borobaadi = 133;
+			}
+		}
+	}
+	else if (step == 0 && px != 0 && py != 0 && tik == 0 && ix>0)
+	{
+		borobaadi++;
+		if ((PositionX > ix - 7 && PositionX < ix + 7 && PositionY > iy + 13 && PositionY < iy + 27) || (borobaadi > timema))
+		{
+			step++;
+			borobaadi = 0;
+		}
+		else if (iy + 20 < 260)
+		{
+			zavie = mazmaz(ix, iy + 20);
+			bahbah(zavie);
+		}
+		else
+		{
+			step++;
+			borobaadi = 0;
+		}
+	}
+	//---//
+	else if (step == 1 && px != 0 && py != 0 && tik == 0 && ix>0)
+	{
+		borobaadi++;
+		if ((PositionX > ix + 13 && PositionX < ix + 27 && PositionY > iy - 7 && PositionY < iy + 7) || (borobaadi > timema))
+		{
+			step++;
+			borobaadi = 0;
+		}
+		else if (ix + 20 < 350)
+		{
+			zavie = mazmaz(ix + 20, iy);
+			bahbah(zavie);
+		}
+		else
+		{
+			step++;
+			borobaadi = 0;
+		}
+	}
+	//---//
+	else if (step == 2 && px != 0 && py != 0 && tik == 0 && base == 0 && ix>0)
+	{
+		borobaadi++;
+		if ((PositionX >  ix - 7 && PositionX <  ix + 7 && PositionY > iy - 27 && PositionY < iy - 13) || (borobaadi > timema))
+		{
+			step++;
+			borobaadi = 0;
+		}
+		else if (iy - 20 > 10)
+		{
+			zavie = mazmaz(ix, iy - 20);
+			bahbah(zavie);
+		}
+		else
+		{
+			step++;
+			borobaadi = 0;
+		}
+	}
+	//---//
+	else if (step == 3 && px != 0 && py != 0 && tik == 0 && base == 0 && ix>0)
+	{
+		borobaadi++;
+		if ((PositionX > ix - 27 && PositionX < ix - 13 && PositionY > iy - 7 && PositionY < iy + 7) || (borobaadi > timema))
+		{
+			step++;
+			borobaadi = 0;
+		}
+		else if (ix - 20 > 10)
+		{
+			zavie = mazmaz(ix - 20, iy);
+			bahbah(zavie);
+		}
+		else
+		{
+			step++;
+			borobaadi = 0;
+		}
+	}
+	else if (step == 4 && PositionX > ix - 27 && PositionX < ix - 13 && PositionY > iy - 7 && PositionY < iy + 7 && ix>0)
+	{
+		step = 0;
+		ix = 0;
+		iy = 0;
+	}
+	/*else if (step <= 41)
+	{
+	borobaadi++;
+	if ((PositionX > stepx[step] - 7 && PositionX < stepx[step] + 7 && PositionY > stepy[step] - 7 && PositionY < stepy[step] + 7) || (borobaadi > timema))
+	{
+	if (step < 41)
+	{
+	step++;
+	}
+	else
+	{
+	step = 1;
+	}
+	borobaadi = 0;
+	}
+	else
+	{
+	zavie = mazmaz(stepx[step], stepy[step]);
+	bahbah(zavie);
+	}
+	}*/
+
+	// bardasht super obj 
+	else if (CSLeft_R > 220 && CSLeft_R<250 && CSLeft_G>20 && CSLeft_G <70 && CSLeft_B >245 && SuperObj_Num > 0)
+	{
+		pink++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+		base = 0;
+		base2 = 0;
+		tmo = 200;
+	}
+	else if (CSRight_R > 220 && CSRight_R<250 && CSRight_G>20 && CSRight_G <70 && CSRight_B >245 && SuperObj_Num > 0)
+	{
+		pink++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+		base = 0;
+		base2 = 0;
+		tmo = 200;
+	}
+
+	//walls
+	else if (US_Right < 20 && US_Left < 20 && US_Front < 20)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -2;
+			WheelRight = -4;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Front < 20 && US_Left < 20)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 2;
+			WheelRight = 0;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Front < 20 && US_Right < 20)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 0;
+			WheelRight = 2;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Front < 20)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -2;
+			WheelRight = 0;
+			LED_1 = 2;
+		}
+	}
+	/*else if (US_Left < 13)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = -3;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Right < 13)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -3;
+			WheelRight = -1;
+			LED_1 = 2;
+		}
+	}*/
+	//run
+	else
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = 5;
+			LED_1 = 0;
+		}
+		else
+		{
+			if ((slowmode == 1) || (slowmode2 == 1))
+			{
+				WheelLeft = 3;
+				WheelRight = 3;
+				LED_1 = 0;
+			}
+			else
+			{
+				WheelLeft = 4;
+				WheelRight = 4;
+				LED_1 = 0;
+			}
+		}
+	}
+}
+
+DLL_EXPORT void OnTimer()
+{
+	switch (CurGame)
+	{
+	case 9:
+		break;
+	case 10:
+		WheelLeft = 0;
+		WheelRight = 0;
+		LED_1 = 0;
+		MyState = 0;
+		break;
+	case 0:
+		Game0();
+		break;
+	case 1:
+		Game1();
+		break;
+	default:
+		break;
+	}
+}
+

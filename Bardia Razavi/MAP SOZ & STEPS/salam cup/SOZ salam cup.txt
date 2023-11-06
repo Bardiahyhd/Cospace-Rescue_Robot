@@ -1,0 +1,30 @@
+pygame 1.9.6
+Hello from the pygame community. https://www.pygame.org/contribute.html
+//---//
+        if (py < 173 && py > 267 && px < 357 && px > 84  && sy < 173 && sy > 267 && sx < 357 && sx > 84 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 67 && py > 172 && px < 356 && px > 84  && sy < 67 && sy > 172 && sx < 356 && sx > 84 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 65 && py > 265 && px < 0 && px > 82  && sy < 65 && sy > 265 && sx < 0 && sx > 82 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 2 && py > 65 && px < 358 && px > 0  && sy < 2 && sy > 65 && sx < 358 && sx > 0 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//

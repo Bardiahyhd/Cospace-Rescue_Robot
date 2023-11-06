@@ -1,0 +1,50 @@
+
+	///////////////////////////////////////////////////////////////////////////////////////// DEPOSITE HA /////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////marhale 1 deposit RGB//////////////////
+	else if (depositc() && deposit() /*&& timer < 640*/)
+	{
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		red = 0;
+		black = 0;
+		cyan = 0;
+		LED_1 = 2;
+		turn = 0;
+		jaleb = 1;
+		marker = 0;
+		taghib = 0;
+		timer = 0;
+	}
+	//////////////////////marhale 3 deposit//////////////////
+	else if (jaleb == 1)
+	{
+		WheelLeft = -4;
+		WheelRight = -4;
+		Duration = 5;
+		LED_1 = 0;
+		jaleb = 2;
+	}
+	//////////////////////marhale 4 deposit//////////////////
+	else if (jaleb == 2)
+	{
+		WheelLeft = 4;
+		WheelRight = -4;
+		Duration = 5;
+		LED_1 = 0;
+		jaleb = 0;
+	}
+	//diposite yek sensori left RGB
+	else if (CSLeft_R > 200 && CSLeft_R < 240 && CSLeft_G > 120 && CSLeft_G < 140 && CSLeft_B < 40 && deposit ()/* && timer < 640*/)
+	{
+		LED_1 = 0;
+		WheelLeft = 0;
+		WheelRight = 2;
+	}
+	//diposite yek sensori right RGB 
+	else if (CSRight_R > 200 && CSRight_R < 240 && CSRight_G > 120 && CSRight_G < 140 && CSRight_B < 40 && deposit() /*&& timer < 640*/)
+	{
+		LED_1 = 0;
+		WheelLeft = 2;
+		WheelRight = 0;
+	}

@@ -1,0 +1,2193 @@
+
+//////////////////////////////////////
+// ONLY C Code can be compiled.
+/////////////////////////////////////
+
+#define CsBot_AI_H//DO NOT delete this line
+#ifndef CSBOT_REAL
+#include <windows.h>
+#include <stdio.h>
+#include <math.h>
+#define DLL_EXPORT extern __declspec(dllexport)
+#define false 0
+#define true 1
+#endif//The robot ID : It must be two char, such as '00','kl' or 'Cr'.
+char AI_MyID[2] = { '0', '2' };
+
+int Duration = 0;
+int SuperDuration = 0;
+int bGameEnd = false;
+int CurAction = -1;
+int CurGame = 0;
+int SuperObj_Num = 0;
+int SuperObj_X = 0;
+int SuperObj_Y = 0;
+int Teleport = 0;
+int LoadedObjects = 0;
+int US_Front = 0;
+int US_Left = 0;
+int US_Right = 0;
+int CSLeft_R = 0;
+int CSLeft_G = 0;
+int CSLeft_B = 0;
+int CSRight_R = 0;
+int CSRight_G = 0;
+int CSRight_B = 0;
+int PositionX = 0;
+int PositionY = 0;
+int TM_State = 0;
+int Compass = 0;
+int Time = 0;
+int WheelLeft = 0;
+int WheelRight = 0;
+int LED_1 = 0;
+int MyState = 0;
+int AI_SensorNum = 13;
+////////////////////
+int red = 0;
+int black = 0;
+int cyan = 0;
+int pink = 0;
+//x super obj
+int sx = 0;
+//y super obj
+int sy = 0;
+//koorradioi
+int px, py = 0;
+//batlagh
+int lajan = 0;
+//deposite marhalei
+int jaleb = 0;
+//marker
+int marker = 0;
+//bikhail
+int tik = 0;
+//outsite
+int out = 0;
+//baze marker
+int bazemark = 0;
+// zavie marker 1E
+int zmarker = 0;
+//min
+int minmark = 0;
+//max
+int maxmark = 0;
+//baraye red
+int rad = 0;
+//baraye black
+int blick = 0;
+////////////////
+int stepu = 0;
+int stepd = -1;
+/////////////////
+int timer = 0;
+////////////////
+int bt = 0;
+///taghib
+int followL = 1;
+int followR = 1;
+//sharte khas bra taghgib
+int poram = 0;
+///step zamin 2
+int borobaadi = 0;
+int timema = 116;
+int base = 0;
+int step0 = -1;
+int step1 = -1;
+int step2 = -1;
+int imred = 0;
+int imblue = 0;
+int aybaba = 0;
+////step zamin 1
+int abi = 0;
+int turn = 0;
+int zard = 0;
+int stop = 0;
+
+#define CsBot_AI_C//DO NOT delete this line
+DLL_EXPORT void SetGameID(int GameID)
+{
+	CurGame = GameID;
+	bGameEnd = 0;
+}
+
+DLL_EXPORT int GetGameID()
+{
+	return CurGame;
+}
+
+//Only Used by CsBot Dance Platform
+DLL_EXPORT int IsGameEnd()
+{
+	return bGameEnd;
+}
+
+#ifndef CSBOT_REAL
+
+DLL_EXPORT char* GetDebugInfo()
+{
+	char info[1024];
+	sprintf(info, "Duration=%d;SuperDuration=%d;bGameEnd=%d;CurAction=%d;CurGame=%d;SuperObj_Num=%d;SuperObj_X=%d;SuperObj_Y=%d;Teleport=%d;LoadedObjects=%d;US_Front=%d;US_Left=%d;US_Right=%d;CSLeft_R=%d;CSLeft_G=%d;CSLeft_B=%d;CSRight_R=%d;CSRight_G=%d;CSRight_B=%d;PositionX=%d;PositionY=%d;TM_State=%d;Compass=%d;Time=%d;WheelLeft=%d;WheelRight=%d;LED_1=%d;MyState=%d;", Duration, SuperDuration, bGameEnd, CurAction, CurGame, SuperObj_Num, SuperObj_X, SuperObj_Y, Teleport, LoadedObjects, US_Front, US_Left, US_Right, CSLeft_R, CSLeft_G, CSLeft_B, CSRight_R, CSRight_G, CSRight_B, PositionX, PositionY, TM_State, Compass, Time, WheelLeft, WheelRight, LED_1, MyState);
+	return info;
+}
+
+DLL_EXPORT char* GetTeamName()
+{
+	return "Negaahe No+";
+}
+
+DLL_EXPORT int GetCurAction()
+{
+	return CurAction;
+}
+
+//Only Used by CsBot Rescue Platform
+DLL_EXPORT int GetTeleport()
+{
+	return Teleport;
+}
+
+//Only Used by CsBot Rescue Platform
+DLL_EXPORT void SetSuperObj(int X, int Y, int num)
+{
+	SuperObj_X = X;
+	SuperObj_Y = Y;
+	SuperObj_Num = num;
+}
+//Only Used by CsBot Rescue Platform
+DLL_EXPORT void GetSuperObj(int *X, int *Y, int *num)
+{
+	*X = SuperObj_X;
+	*Y = SuperObj_Y;
+	*num = SuperObj_Num;
+}
+
+#endif CSBOT_REAL
+
+DLL_EXPORT void SetDataAI(volatile int* packet, volatile int *AI_IN)
+{
+
+	int sum = 0;
+
+	US_Front = AI_IN[0]; packet[0] = US_Front; sum += US_Front;
+	US_Left = AI_IN[1]; packet[1] = US_Left; sum += US_Left;
+	US_Right = AI_IN[2]; packet[2] = US_Right; sum += US_Right;
+	CSLeft_R = AI_IN[3]; packet[3] = CSLeft_R; sum += CSLeft_R;
+	CSLeft_G = AI_IN[4]; packet[4] = CSLeft_G; sum += CSLeft_G;
+	CSLeft_B = AI_IN[5]; packet[5] = CSLeft_B; sum += CSLeft_B;
+	CSRight_R = AI_IN[6]; packet[6] = CSRight_R; sum += CSRight_R;
+	CSRight_G = AI_IN[7]; packet[7] = CSRight_G; sum += CSRight_G;
+	CSRight_B = AI_IN[8]; packet[8] = CSRight_B; sum += CSRight_B;
+	PositionX = AI_IN[9]; packet[9] = PositionX; sum += PositionX;
+	PositionY = AI_IN[10]; packet[10] = PositionY; sum += PositionY;
+	TM_State = AI_IN[11]; packet[11] = TM_State; sum += TM_State;
+	Compass = AI_IN[12]; packet[12] = Compass; sum += Compass;
+	Time = AI_IN[13]; packet[13] = Time; sum += Time;
+	packet[14] = sum;
+
+}
+DLL_EXPORT void GetCommand(int *AI_OUT)
+{
+	AI_OUT[0] = WheelLeft;
+	AI_OUT[1] = WheelRight;
+	AI_OUT[2] = LED_1;
+	AI_OUT[3] = MyState;
+}
+boolean deposit()
+{
+	if ((red > 0 && cyan > 0 && black > 0) || (red + cyan + black + pink == 6) || (pink > 0 && red + black + cyan + pink == 6))
+		return true;
+	else
+		return false;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////IN BARNAME BA MOSHAKHASATE ZAMIN 1E TAGHIR YAFTE KE TAGHRIBAN BA ZAMIN M59 YEKIE ///////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+boolean OutsideTrapcolorR()
+{
+	if ((CSRight_R > 200 && CSRight_R < 240 && CSRight_G > 210 && CSRight_G < 255 && CSRight_B < 10))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean OutsideTrapcolorL()
+{
+	if ((CSLeft_R > 200 && CSLeft_R < 240 && CSLeft_G > 210 && CSLeft_G < 255 && CSLeft_B < 10))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean OutsideTrapcolorB()
+{
+	if ((CSLeft_R > 200 && CSLeft_R < 240 && CSLeft_G > 210 && CSLeft_G < 255 && CSLeft_B < 10 && CSRight_R > 200 && CSRight_R < 240 && CSRight_G > 210 && CSRight_G < 255 && CSRight_B < 10))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+//62-54
+//97-111
+//221-245
+boolean InsideTrapcolor()
+{
+	if ((CSRight_R > 54 - 7 && CSRight_R < 62 + 7 && CSRight_G > 97 - 7 && CSRight_G < 111 + 7 && CSRight_B > 221 - 7 && CSRight_B < 245 + 7)
+		|| (CSLeft_R > 54 - 7 && CSLeft_R < 62 + 7 && CSLeft_G > 97 - 7 && CSLeft_G < 111 + 7 && CSLeft_B > 221 - 7 && CSLeft_B < 245 + 7))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean special()
+{
+	if ((CSLeft_R < 0 + 7 && CSLeft_G < 171 + 7 && CSLeft_G > 150 - 7 && CSLeft_B > 255 - 7 && CSRight_R < 0 + 7 && CSRight_G <  171 + 7 && CSRight_G > 150 - 7 && CSRight_B > 255 - 7))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean green()
+{
+	if (CSLeft_R < 0 + 7 && CSLeft_G > 150 - 7 && CSLeft_G < 171 + 7 && CSLeft_B < 100 + 7 && CSLeft_B > 90 - 7
+		&& CSRight_R <  0 + 7 && CSRight_G > 150 - 7 && CSRight_G < 171 + 7 && CSRight_B < 100 + 7 && CSRight_B > 90 - 7)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean Blackcolor()
+{
+	if ((CSLeft_R>20 && CSLeft_R<50 && CSLeft_G>20 && CSLeft_G<50 && CSLeft_B>20 && CSLeft_B<50) || (CSRight_R>20 && CSRight_R<50 && CSRight_G>20 && CSRight_G<50 && CSRight_B>20 && CSRight_B < 50))
+	{//
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean Cyancolor()
+{
+	if ((CSRight_R>10 && CSRight_R<70 && CSRight_G>230 && CSRight_B>240) || (CSLeft_R>10 && CSLeft_R<90 && CSLeft_G>240 && CSLeft_B>240))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean Redcolor()
+{
+	if ((CSLeft_R>220 && CSLeft_G>20 && CSLeft_G<45 && CSLeft_B>20 && CSLeft_B<45) || (CSRight_R>220 && CSRight_G>20 && CSRight_G<45 && CSRight_B>20 && CSRight_B<45))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+boolean bahbah(int zavie)
+{
+	int min = 0;
+	int max = 0;
+	int baze = 20; // avaz shavad
+	int ekhz = 0; ////////// ekhtelaf zavie
+	min = zavie - baze;
+	max = zavie + baze;
+	if (min < 0)
+		min = min + 360;
+	if (min > 360)
+		min = min - 360;
+	if (max < 0)
+		max = max + 360;
+	if (max > 360)
+		max = max - 360;
+	//zamani ke fasele ba hadaf kamtar az 5 position bud
+	if (abs(PositionX - sx) < 5 && abs(PositionY - sy) < 5)
+	{
+		//vaghti dar hale bardashtane ganj hasti 
+
+
+		//hame chiz sefr shavad (rojoo shavad be takhte)
+		sy = 0;
+		sx = 0;
+		WheelLeft = 0;
+		WheelRight = 0;
+		LED_1 = 1;
+		pink++;
+		Duration = 50;
+		base = 0;
+	}
+	else
+	{
+
+		if (max > min)
+		{
+			if (Compass > min && Compass < max)
+			{
+				if (lajan == 1)
+				{
+					WheelLeft = 5;
+					WheelRight = 5;
+					LED_1 = 0;
+					return true;
+				}
+				else
+				{
+					WheelLeft = 4;
+					WheelRight = 4;
+					LED_1 = 0;
+					return true;
+				}
+
+			}
+		}
+
+		else
+		{
+			if (min < Compass || Compass < max)
+			{
+				if (lajan == 1)
+				{
+					WheelLeft = 5;
+					WheelRight = 5;
+					LED_1 = 0;
+					return true;
+				}
+				else
+				{
+
+					WheelLeft = 4;
+					WheelRight = 4;
+					LED_1 = 0;
+					return true;
+				}
+			}
+		}
+		ekhz = Compass - zavie;
+		if (ekhz < 0)
+		{
+			ekhz = ekhz + 360;
+		}
+		if (ekhz > 360)
+		{
+			ekhz = ekhz - 360;
+		}
+		if (ekhz < 180)
+		{
+			if (lajan == 1)
+			{
+				WheelLeft = 5;
+				WheelRight = -5;
+				LED_1 = 0;
+			}
+			else
+			{
+				WheelLeft = 2;
+				WheelRight = -1;
+				LED_1 = 0;
+			}
+		}
+		else
+		{
+			if (lajan == 1)
+			{
+				WheelLeft = -5;
+				WheelRight = 5;
+				LED_1 = 0;
+			}
+			else
+			{
+				WheelLeft = -1;
+				WheelRight = 2;
+				LED_1 = 0;
+			}
+		}
+	}
+}
+void bikhialsuper()
+{
+	if (((US_Left < 4) || (US_Right < 4) || (US_Front < 4)) && (tik == 0))
+	{
+		tik = 16;
+	}
+}
+void bikhialtrap()
+{
+	if ((((OutsideTrapcolorB()) || (OutsideTrapcolorL()) || (OutsideTrapcolorR())) && (tik == 0)) && (deposit()))
+	{
+		tik = 33;
+	}
+}
+boolean dipositc()
+{
+	if (CSLeft_R > 204 - 7 && CSLeft_R < 235 + 7 && CSLeft_G > 130 - 7 && CSLeft_G < 148 + 7 && CSLeft_B < 0 + 7
+		&& CSRight_R > 204 - 7 && CSRight_R <  235 + 7 && CSRight_G > 130 - 7 && CSRight_G < 148 + 7 && CSRight_B < 0 + 7)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+void outsite()
+{
+	if (dipositc() && red + black + cyan == 0)
+	{
+		out = 1;
+	}
+}
+//void trapcheck()
+//{
+//	if (OutsideTrapcolorR() && red + black + cyan>0)
+//	{
+//		WheelLeft = -3;
+//		WheelRight = 3;
+//	}
+//	else if (OutsideTrapcolorL() && red + black + cyan>0)
+//	{
+//		WheelLeft = 3;
+//		WheelRight = -3;
+//	}
+//}
+
+void Game0()
+{
+	//if ((special() && deposit() &&  abi == 0  && Time < 180) || (special() && red + black + cyan > 1 && abi == 0 && Time > 180))
+	//{
+	//abi = 1;
+	//followL = -1;	
+	//}
+	/*printf("timer=%d\n", timer);*/
+	int a = 0;
+	if (SuperDuration > 0)
+	{
+		SuperDuration--;
+	}
+	else if (Duration > 0)
+	{
+		Duration--;
+	}
+	/*else if (Time < 1)
+	{
+	WheelLeft = -1;
+	WheelRight = 1;
+	LED_1 = 1;
+	}*/
+	//start world 1
+	//////////////////marhale 1 deposit/////////
+	//else if (dipositc() && jaleb == 0 && deposit())
+	//{
+	//	jaleb = 1;
+	//	WheelLeft = 1;
+	//	WheelRight = 1;
+	//	Duration = 10;
+	//}
+	//////////////////////marhale 2  deposit//////////////////
+	else if ((jaleb == 0 && dipositc() && deposit()) || (Time > 150 && red + black + cyan > 1 && dipositc()))
+	{
+		jaleb = 1;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		red = 0;
+		black = 0;
+		cyan = 0;
+		LED_1 = 2;
+		/*	turn = 0;
+		timer = 0;
+		followR = 0;
+		followL = 0;
+		abi = 0;*/
+	}
+	//////////////////////marhale 3 deposit//////////////////
+	else if (jaleb == 1)
+	{
+		WheelLeft = -4;
+		WheelRight = -4;
+		Duration = 8;
+		LED_1 = 0;
+		jaleb = 2;
+	}
+	//////////////////////marhale 4 deposit//////////////////
+	else if (jaleb == 2)
+	{
+		WheelLeft = 4;
+		WheelRight = -4;
+		Duration = 5;
+		LED_1 = 0;
+		jaleb = 0;
+	}
+	/////teleport//////
+	else if (Time >= 180 && Time <= 187)
+	{
+		Teleport = 2;
+		red = 0;
+		cyan = 0;
+		black = 0;
+		WheelLeft = 0;
+		WheelRight = 0;
+		jaleb = 0;
+	}
+	/////////step deposite 0M
+	////////marhale 1
+	////move forward
+	//else if (abi == 1)
+	//{
+	//	abi = 2;
+	//	WheelLeft = 1;
+	//	WheelRight = 1;
+	//	Duration = 1;
+	//}
+	/////turn to up
+	//else if ((abi == 2)  && ((Compass > 350) || (Compass < 10)))
+	//{
+	//	WheelLeft = 2;
+	//	WheelRight = 2;
+	//	abi = 3;
+	//}
+	//else if (abi == 2  && Compass < 350 && Compass > 10)
+	//{
+	//	WheelLeft = -1;
+	//	WheelRight = 1;
+	//}
+	//else if (abi == 3)
+	//{
+	//	followR = 1;
+	//	abi = -1;
+	//}
+	//// az inja
+	//// shorooesh kon
+	////bra right
+	//else if (US_Right < 8 && followR == 1 )
+	//{
+	//	followR = 2;
+	//	followL = -1;
+	//}
+	////agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	//else if (US_Front < 8 && followR == 2 )
+	//{
+	//	WheelLeft = -5;
+	//	WheelRight = -2;
+	//}
+	////taghib
+	////agar az divare chap door shodi, bargard be samtesh
+	//else if (US_Right > 8 && followR == 2 )
+	//{
+	//	/*timer++;*/
+	//	WheelLeft = 4;
+	//	WheelRight = 2;
+	//}
+	////agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	//else if (US_Right < 8 && followR == 2)
+	//{
+	//	/*timer++;*/
+	//	WheelLeft = 2;
+	//	WheelRight = 4;
+	//}
+	///////sefr kardan ganj ha bad az trap/////////
+	else if (InsideTrapcolor())
+	{
+		red = 0;
+		black = 0;
+		cyan = 0;
+	}
+	///////trap/////
+	else if (OutsideTrapcolorR() && red + black + cyan > 0)
+	{
+		if (followL > 1)
+		{
+			WheelLeft = -2;
+			WheelRight = -2;
+		}
+		else
+			WheelLeft = -5;
+		WheelRight = -3;
+	}
+	else if (OutsideTrapcolorL() && red + black + cyan > 0)
+	{
+		if (followL > 1)
+		{
+			WheelLeft = -2;
+			WheelRight = -2;
+		}
+		else
+			WheelLeft = -3;
+		WheelRight = -5;
+	}
+	else if (OutsideTrapcolorB() && red + black + cyan > 0)
+	{
+		if (followL > 1)
+		{
+			WheelLeft = -2;
+			WheelRight = -2;
+		}
+		WheelLeft = -5;
+		WheelRight = -3;
+	}
+	/////////ganj/////////
+	else if ((Redcolor() && red + black + cyan < 6 && red < 2) || (Redcolor() && red + black + cyan < 6 && Time > 150))
+	{
+		red++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	else if ((Blackcolor() && red + black + cyan<6 && black<2) || (Blackcolor() && red + black + cyan < 6 && Time > 150))
+	{
+		black++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	else if ((Cyancolor() && red + black + cyan<6 && cyan<2) || (Cyancolor() && red + black + cyan < 6 && Time > 150))
+	{
+		cyan++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	////////timer taghib divar
+	else if ((timer >= 116 && followL == 2) || (timer >= 116 && followR == 2))
+	{
+		timer = 0;
+		followL = 1;
+	}
+	//////////////////////////////////////////////////////////////////TAGHIB/////////////////////////////////////////////////////////////////////////
+	// az inja
+	// shorooesh kon
+	//bra left
+	////avalaye time
+	else if (US_Left < 10 && followL == 1)
+	{
+		followR = -1;
+		followL = 2;
+	}
+	//agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	else if (US_Front < 8 && followL == 2)
+	{
+		WheelLeft = -2;
+		WheelRight = -5;
+
+	}
+	//taghib
+	//agar az divare chap door shodi, bargard be samtesh
+	else if (US_Left > 10 && followL == 2 && timer<116)
+	{
+		WheelLeft = 2;
+		WheelRight = 4;
+		timer++;
+	}
+	//agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	else if (US_Left < 10 && followL == 2 && timer<116)
+	{
+		WheelLeft = 4;
+		WheelRight = 2;
+		timer++;
+	}
+	//walll
+	else if (US_Right < 8 && US_Left < 8 && US_Front < 8)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -2;
+			WheelRight = -4;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Front < 8 && US_Left < 8)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 2;
+			WheelRight = 0;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Front < 8 && US_Right < 8)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 0;
+			WheelRight = 2;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Front < 8)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -2;
+			WheelRight = 0;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Left < 8)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = -3;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Right < 8)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -3;
+			WheelRight = -1;
+			LED_1 = 2;
+		}
+	}
+	//
+	////run/////
+	else
+	{
+		WheelLeft = 3;
+		WheelRight = 3;
+		LED_1 = 0;
+	}
+}
+int mazmaz(int pX, int pY)
+{
+	double z = atan2((pY - PositionY), (pX - PositionX));
+	/////////////////////////////////TABDILE RADIAN BE COMPASSSSS/////////////////////////////////
+	z = (z * 180 / 3.14) - 90;
+	if (z > 360)
+		z = z - 360;
+	if (z < 0)
+		z = z + 360;
+	return (int)z;
+}
+void Game1()
+{
+
+
+	bikhialsuper();
+	bikhialtrap();
+	
+	int zavie;
+	//123 - 163
+	//	131 - 171
+	//	177 - 217
+	//batlaghe asli
+	//va baad mirim oon paeina avaz mikonim charkheshamoono
+	if (((CSRight_R >120 && CSRight_R<160 && CSRight_G>130 && CSRight_G<170 && CSRight_B>180 && CSRight_B<220)
+		|| (CSLeft_R>120 && CSLeft_R<160 && CSLeft_G>130 && CSLeft_G<170 && CSLeft_B>180 && CSLeft_B < 220)))
+	{
+		lajan = 1;
+	}
+	else
+	{
+		lajan = 0;
+
+	}
+
+	//baraye koore radioei ino tozih midim too tdp
+	if (PositionX != 0 && PositionY != 0)
+	{
+		px = PositionX;
+		py = PositionY;
+	}
+	else
+	{
+		PositionX = px;
+		PositionY = py;
+	}
+	////
+	//deposit
+	if (dipositc() && deposit())
+	{
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		red = 0;
+		black = 0;
+		cyan = 0;
+		pink = 0;
+		LED_1 = 2;
+		step2 = 0;
+
+	}
+	if (imred == 0 && imblue == 0)
+	{
+		if (px > 300 && py > 200)
+		{
+			imred == 1;
+		}
+		else if (60 < px && py > 200)
+		{
+			imblue == 1;
+		}
+	}
+	/////////////////////////////////noghte delkhah//////////////////ke alan  super obj hastesh
+	if (SuperObj_X > 0 && SuperObj_Y > 0)
+	{
+		sx = SuperObj_X; // backup giri az x va y super obj
+		sy = SuperObj_Y;
+
+	}
+	
+	if (sx > 0 && sy > 0)
+	{
+		zavie = mazmaz(sx, sy);
+		bahbah(zavie);
+	}
+	else if (imred == 1 && aybaba == 0)
+	{
+		step0 = 0;
+		aybaba = 1;
+	}
+	else if (imblue == 1 && aybaba == 0)
+	{
+		step1 = 0;
+		aybaba = 1;
+	}
+
+	//ta inja
+	//tik
+	if (tik > 0)
+	{
+		tik--;
+	}
+	if (SuperDuration > 0)
+	{
+		SuperDuration--;
+	}
+	else if (Duration > 0)
+	{
+		Duration--;
+	}
+
+
+	//else if (sx > 0 && sy > 0 && tik > 0&& base==1)
+	//{
+	//	//////////////////////////////////////////////////////////////////TAGHIB/////////////////////////////////////////////////////////////////////////
+	//	// az inja
+	//	// shorooesh kon
+	//	//bra left
+	//	if (US_Left < 10 && followL == 1 )
+	//	{
+	//		followR = -1;
+	//		followL = 2;
+	//	}
+	//	//agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	//	else if (US_Front < 10 && followL == 2  )
+	//	{
+	//		WheelLeft = -2;
+	//		WheelRight = -5;
+	//	}
+	//	//taghib
+	//	//agar az divare chap door shodi, bargard be samtesh
+	//	else if (US_Left > 10 && followL == 2 )
+	//	{
+	//		WheelLeft = 2;
+	//		WheelRight = 4;
+	//	}
+	//	//agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	//	else if (US_Left < 10 && followL == 2 )
+	//	{
+	//		WheelLeft = 4;
+	//		WheelRight = 2;
+	//	}
+	//	// az inja
+	//	// shorooesh kon
+	//	//bra right
+	//	else if (US_Right < 10 && followR == 1 )
+	//	{
+	//		followR = 2;
+	//		followL = -1;
+	//	}
+	//	//agar vasate taghib yeho jelot divaro did, becharkh be samti ke dashti taghib mikardi az ghabl ke okeysh koni ghaziaro baramoon
+	//	else if (US_Front < 10 && followR == 2 )
+	//	{
+	//		WheelLeft = -5;
+	//		WheelRight = -2;
+	//	}
+	//	//taghib
+	//	//agar az divare chap door shodi, bargard be samtesh
+	//	else if (US_Right > 10 && followR == 2 )
+	//	{
+	//		WheelLeft = 4;
+	//		WheelRight = 2;
+	//	}
+	//	//agar kheyli didi dari nazdik mishi, becharkh hamoon oonvaria
+	//	else if (US_Right < 10 && followR == 2 )
+	//	{
+	//		//WheelLeft = 2;
+	//		WheelRight = 4;
+	//	}
+	//}
+
+	//position left 
+	else if (PositionX < 10 && PositionX >1 && Compass > 90 && Compass < 180)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = 1;
+			LED_1 = 2;
+		}
+	}
+	else if (PositionX < 10 && PositionX >1 && Compass < 90)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 1;
+			WheelRight = -1;
+			LED_1 = 2;
+		}
+	}
+	//position right
+	else if (PositionX > 350 && Compass > 270)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = 1;
+			LED_1 = 2;
+		}
+	}
+	else if (PositionX > 350 && Compass > 180 && Compass < 270)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 1;
+			WheelRight = -1;
+			LED_1 = 2;
+		}
+	}
+	//position up
+	else if (PositionY > 260 && Compass < 90)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = 1;
+			LED_1 = 2;
+		}
+	}
+	else if (PositionY > 260 && Compass > 270)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 1;
+			WheelRight = -1;
+			LED_1 = 2;
+		}
+	}
+	//position down
+	else if (PositionY < 10 && PositionY > 1 && Compass > 90 && Compass < 180)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 1;
+			WheelRight = -1;
+			LED_1 = 2;
+		}
+	}
+	else if (PositionY < 10 && PositionY > 1 && Compass > 180 && Compass < 270)
+	{
+		if (lajan = 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = 1;
+			LED_1 = 2;
+		}
+	}
+
+	///////////////////
+	//////////////////////marhale 3 deposit//////////////////
+	else if (jaleb == 1)
+	{
+		WheelLeft = -4;
+		WheelRight = -4;
+		Duration = 10;
+		LED_1 = 0;
+		jaleb = 2;
+	}
+	//////////////////////marhale 4 deposit//////////////////
+	else if (jaleb == 2)
+	{
+		WheelLeft = 4;
+		WheelRight = -4;
+		Duration = 10;
+		LED_1 = 0;
+		jaleb = 0;
+	}
+	//tale
+	else if (OutsideTrapcolorR() && red + black + cyan + pink > 0)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+		}
+		else
+		{
+			WheelLeft = -5;
+			WheelRight = -2;
+		}
+	}
+	else if (OutsideTrapcolorL() && red + black + cyan + pink > 0)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+		}
+		else
+		{
+			WheelLeft = -2;
+			WheelRight = -5;
+		}
+	}
+	else if (OutsideTrapcolorB() && red + black + cyan + pink > 0)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+		}
+		else
+		{
+			WheelLeft = -5;
+			WheelRight = -3;
+		}
+	}
+	//sefr kardan ganj ha bad az tale
+	else if (InsideTrapcolor())
+	{
+		red = 0;
+		black = 0;
+		cyan = 0;
+		pink = 0;
+	}
+	//ganj
+	else if (Redcolor() && red + black + cyan < 6 && red < 2)
+	{
+		red++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	//////////////////
+
+	//////////////////
+	else if (Blackcolor() && red + black + cyan < 6 && black < 2)
+	{
+		black++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	//////////////////////
+
+	//////////////////////
+
+	else if (Cyancolor() && red + black + cyan < 6 && cyan < 2)
+	{
+		cyan++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	// bardasht super obj 
+	else if (CSLeft_R > 220 && CSLeft_R<250 && CSLeft_G>20 && CSLeft_G <70 && CSLeft_B >245)
+	{
+		pink++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+		base = 0;
+		
+	}
+	else if (CSRight_R > 220 && CSRight_R<250 && CSRight_G>20 && CSRight_G <70 && CSRight_B >245)
+	{
+		pink++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+		base = 0;
+		
+	}
+	/*else if (px > 100 && px < 180 && ((red + black + cyan + pink == 6)||(red == 2 && black == 2 && cyan == 2)))
+	{
+	zavie = mazmaz(72, 133);
+	bahbah(zavie);
+	}
+	else if (px > 180 && px < 260 && ((red + black + cyan + pink == 6) || (red == 2 && black == 2 && cyan == 2)))
+	{
+	zavie = mazmaz(238, 135);
+	bahbah(zavie);
+	}*/
+	
+	//pygame 1.9.6
+
+	else if (step0 == 0 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 344 - 7 && PositionX < 344 + 7 && PositionY > 250 - 7 && PositionY < 250 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(344, 250);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 344 //
+	//Y 250 //
+	else if (step0 == 1 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 310 - 7 && PositionX < 310 + 7 && PositionY > 226 - 7 && PositionY < 226 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(310, 226);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 310 //
+	//Y 226 //
+	else if (step0 == 2 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 248 - 7 && PositionX < 248 + 7 && PositionY > 256 - 7 && PositionY < 256 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(248, 256);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 248 //
+	//Y 256 //
+	else if (step0 == 3 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 272 - 7 && PositionX < 272 + 7 && PositionY > 14 - 7 && PositionY < 14 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(272, 14);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 272 //
+	//Y 14 //
+	else if (step0 == 4 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 210 - 7 && PositionX < 210 + 7 && PositionY > 110 - 7 && PositionY < 110 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(210, 110);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 210 //
+	//Y 110 //
+	else if (step0 == 5 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 182 - 7 && PositionX < 182 + 7 && PositionY > 34 - 7 && PositionY < 34 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(182, 34);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 182 //
+	//Y 34 //
+	else if (step0 == 6 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 154 - 7 && PositionX < 154 + 7 && PositionY > 120 - 7 && PositionY < 120 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(154, 120);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 154 //
+	//Y 120 //
+	else if (step0 == 7 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 82 - 7 && PositionX < 82 + 7 && PositionY > 12 - 7 && PositionY < 12 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(82, 12);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 82 //
+	//Y 12 //
+	else if (step0 == 8 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 12 - 7 && PositionX < 12 + 7 && PositionY > 63 - 7 && PositionY < 63 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(12, 63);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 12 //
+	//Y 63 //
+	else if (step0 == 9 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 7 - 7 && PositionX < 7 + 7 && PositionY > 199 - 7 && PositionY < 199 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(7, 199);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 7 //
+	//Y 199 //
+	else if (step0 == 10 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 55 - 7 && PositionX < 55 + 7 && PositionY > 200 - 7 && PositionY < 200 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(55, 200);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 55 //
+	//Y 200 //
+	else if (step0 == 11 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 12 - 7 && PositionX < 12 + 7 && PositionY > 64 - 7 && PositionY < 64 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(12, 64);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 12 //
+	//Y 64 //
+	else if (step0 == 12 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 81 - 7 && PositionX < 81 + 7 && PositionY > 13 - 7 && PositionY < 13 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(81, 13);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 81 //
+	//Y 13 //
+	else if (step0 == 13 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 186 - 7 && PositionX < 186 + 7 && PositionY > 14 - 7 && PositionY < 14 + 7) || (borobaadi > timema))
+		{
+			step0++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(186, 14);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 186 //
+	//Y 14 //
+
+	else if (step1 == 0 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 19 - 7 && PositionX < 19 + 7 && PositionY > 245 - 7 && PositionY < 245 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(19, 245);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 19 //
+	//Y 245 //
+	else if (step1 == 1 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 46 - 7 && PositionX < 46 + 7 && PositionY > 230 - 7 && PositionY < 230 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(46, 230);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 46 //
+	//Y 230 //
+	else if (step1 == 2 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 100 - 7 && PositionX < 100 + 7 && PositionY > 257 - 7 && PositionY < 257 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(100, 257);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 100 //
+	//Y 257 //
+	else if (step1 == 3 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 123 - 7 && PositionX < 123 + 7 && PositionY > 218 - 7 && PositionY < 218 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(123, 218);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 123 //
+	//Y 218 //
+	else if (step1 == 4 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 107 - 7 && PositionX < 107 + 7 && PositionY > 22 - 7 && PositionY < 22 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(107, 22);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 107 //
+	//Y 22 //
+	else if (step1 == 5 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 156 - 7 && PositionX < 156 + 7 && PositionY > 119 - 7 && PositionY < 119 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(156, 119);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 156 //
+	//Y 119 //
+	else if (step1 == 6 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 189 - 7 && PositionX < 189 + 7 && PositionY > 45 - 7 && PositionY < 45 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(189, 45);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 189 //
+	//Y 45 //
+	else if (step1 == 7 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 231 - 7 && PositionX < 231 + 7 && PositionY > 83 - 7 && PositionY < 83 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(231, 83);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 231 //
+	//Y 83 //
+	else if (step1 == 8 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 286 - 7 && PositionX < 286 + 7 && PositionY > 17 - 7 && PositionY < 17 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(286, 17);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 286 //
+	//Y 17 //
+	else if (step1 == 9 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 348 - 7 && PositionX < 348 + 7 && PositionY > 69 - 7 && PositionY < 69 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(348, 69);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 348 //
+	//Y 69 //
+	else if (step1 == 10 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 345 - 7 && PositionX < 345 + 7 && PositionY > 193 - 7 && PositionY < 193 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(345, 193);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 345 //
+	//Y 193 //
+	else if (step1 == 11 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 318 - 7 && PositionX < 318 + 7 && PositionY > 194 - 7 && PositionY < 194 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(318, 194);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 318 //
+	//Y 194 //
+	else if (step1 == 12 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 319 - 7 && PositionX < 319 + 7 && PositionY > 123 - 7 && PositionY < 123 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(319, 123);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 319 //
+	//Y 123 //
+	else if (step1 == 13 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 348 - 7 && PositionX < 348 + 7 && PositionY > 69 - 7 && PositionY < 69 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(348, 69);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 348 //
+	//Y 69 //
+	else if (step1 == 14 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 282 - 7 && PositionX < 282 + 7 && PositionY > 20 - 7 && PositionY < 20 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(282, 20);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 282 //
+	//Y 20 //
+	else if (step1 == 15 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 188 - 7 && PositionX < 188 + 7 && PositionY > 17 - 7 && PositionY < 17 + 7) || (borobaadi > timema))
+		{
+			step1++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(188, 17);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 188 //
+	//Y 17 //
+
+	else if (step2 == 0 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 181 - 7 && PositionX < 181 + 7 && PositionY > 14 - 7 && PositionY < 14 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(181, 14);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 181 //
+	//Y 14 //
+	else if (step2 == 1 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 286 - 7 && PositionX < 286 + 7 && PositionY > 14 - 7 && PositionY < 14 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(286, 14);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 286 //
+	//Y 14 //
+	else if (step2 == 2 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 190 - 7 && PositionX < 190 + 7 && PositionY > 111 - 7 && PositionY < 111 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(190, 111);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 190 //
+	//Y 111 //
+	else if (step2 == 3 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 86 - 7 && PositionX < 86 + 7 && PositionY > 13 - 7 && PositionY < 13 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(86, 13);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 86 //
+	//Y 13 //
+	else if (step2 == 4 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 20 - 7 && PositionX < 20 + 7 && PositionY > 69 - 7 && PositionY < 69 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(20, 69);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 20 //
+	//Y 69 //
+	else if (step2 == 5 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 10 - 7 && PositionX < 10 + 7 && PositionY > 200 - 7 && PositionY < 200 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(10, 200);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 10 //
+	//Y 200 //
+	else if (step2 == 6 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 51 - 7 && PositionX < 51 + 7 && PositionY > 199 - 7 && PositionY < 199 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(51, 199);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 51 //
+	//Y 199 //
+	else if (step2 == 7 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 18 - 7 && PositionX < 18 + 7 && PositionY > 68 - 7 && PositionY < 68 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(18, 68);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 18 //
+	//Y 68 //
+	else if (step2 == 8 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 84 - 7 && PositionX < 84 + 7 && PositionY > 15 - 7 && PositionY < 15 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(84, 15);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 84 //
+	//Y 15 //
+	else if (step2 == 9 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 180 - 7 && PositionX < 180 + 7 && PositionY > 56 - 7 && PositionY < 56 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(180, 56);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 180 //
+	//Y 56 //
+	else if (step2 == 10 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 251 - 7 && PositionX < 251 + 7 && PositionY > 118 - 7 && PositionY < 118 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(251, 118);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 251 //
+	//Y 118 //
+	else if (step2 == 11 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 238 - 7 && PositionX < 238 + 7 && PositionY > 251 - 7 && PositionY < 251 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(238, 251);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 238 //
+	//Y 251 //
+	else if (step2 == 12 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 341 - 7 && PositionX < 341 + 7 && PositionY > 256 - 7 && PositionY < 256 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(341, 256);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 341 //
+	//Y 256 //
+	else if (step2 == 13 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 342 - 7 && PositionX < 342 + 7 && PositionY > 231 - 7 && PositionY < 231 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(342, 231);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 342 //
+	//Y 231 //
+	else if (step2 == 14 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 267 - 7 && PositionX < 267 + 7 && PositionY > 255 - 7 && PositionY < 255 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(267, 255);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 267 //
+	//Y 255 //
+	else if (step2 == 15 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 235 - 7 && PositionX < 235 + 7 && PositionY > 256 - 7 && PositionY < 256 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(235, 256);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 235 //
+	//Y 256 //
+	else if (step2 == 16 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 253 - 7 && PositionX < 253 + 7 && PositionY > 20 - 7 && PositionY < 20 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(253, 20);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 253 //
+	//Y 20 //
+	else if (step2 == 17 && px != 0 && py != 0 && tik == 0 && base == 0)
+	{
+		borobaadi++;
+		if ((PositionX > 176 - 7 && PositionX < 176 + 7 && PositionY > 20 - 7 && PositionY < 20 + 7) || (borobaadi > timema))
+		{
+			step2++;
+			borobaadi = 0;
+		}
+		else
+		{
+			zavie = mazmaz(176, 20);
+			bahbah(zavie);
+		}
+	}
+	//---//
+	//X 176 //
+	//Y 20 //
+	//}
+	//walll
+	else if (US_Right < 13 && US_Left < 13 && US_Front < 13)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -2;
+			WheelRight = -4;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Front < 13 && US_Left < 13)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 2;
+			WheelRight = 0;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Front < 13 && US_Right < 13)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = 0;
+			WheelRight = 2;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Front < 13)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -2;
+			WheelRight = 0;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Left < 13)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = -5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -1;
+			WheelRight = -3;
+			LED_1 = 2;
+		}
+	}
+	else if (US_Right < 13)
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = -5;
+			WheelRight = 5;
+			LED_1 = 2;
+		}
+		else
+		{
+			WheelLeft = -3;
+			WheelRight = -1;
+			LED_1 = 2;
+		}
+	}
+	//run
+	else
+	{
+		if (lajan == 1)
+		{
+			WheelLeft = 5;
+			WheelRight = 5;
+			LED_1 = 0;
+		}
+		else
+		{
+			WheelLeft = 3;
+			WheelRight = 3;
+			LED_1 = 0;
+		}
+	}
+}
+
+DLL_EXPORT void OnTimer()
+{
+	switch (CurGame)
+	{
+	case 9:
+		break;
+	case 10:
+		WheelLeft = 0;
+		WheelRight = 0;
+		LED_1 = 0;
+		MyState = 0;
+		break;
+	case 0:
+		Game0();
+		break;
+	case 1:
+		Game1();
+		break;
+	default:
+		break;
+	}
+}

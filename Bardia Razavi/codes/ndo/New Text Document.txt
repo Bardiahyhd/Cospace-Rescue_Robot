@@ -1,0 +1,104 @@
+pygame 1.9.6
+Hello from the pygame community. https://www.pygame.org/contribute.html
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: Interlace handling should be turned on when using png_read_image
+//---//
+        if (py < 98 && py > 1 && px < 118 && px > 60  && sy < 98 && sy > 1 && sx < 118 && sx > 60 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+//---//
+        if (py < 3 && py > 155 && px < 120 && px > 277  && sy < 3 && sy > 155 && sx < 120 && sx > 277 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 155 && py > 2 && px < 426 && px > 296  && sy < 155 && sy > 2 && sx < 426 && sx > 296 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 154 && py > 3 && px < 659 && px > 439  && sy < 154 && sy > 3 && sx < 659 && sx > 439 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 217 && py > 3 && px < 718 && px > 665  && sy < 217 && sy > 3 && sx < 718 && sx > 665 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 216 && py > 170 && px < 659 && px > 436  && sy < 216 && sy > 170 && sx < 659 && sx > 436 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+//---//
+        if (py < 175 && py > 216 && px < 3 && px > 367  && sy < 175 && sy > 216 && sx < 3 && sx > 367 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 284 && py > 231 && px < 714 && px > 2  && sy < 284 && sy > 231 && sx < 714 && sx > 2 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 529 && py > 288 && px < 713 && px > 616  && sy < 529 && sy > 288 && sx < 713 && sx > 616 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 525 && py > 287 && px < 134 && px > 5  && sy < 525 && sy > 287 && sx < 134 && sx > 5 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 527 && py > 466 && px < 606 && px > 143  && sy < 527 && sy > 466 && sx < 606 && sx > 143 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 451 && py > 309 && px < 593 && px > 160  && sy < 451 && sy > 309 && sx < 593 && sx > 160 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 164 && py > 132 && px < 54 && px > 1  && sy < 164 && sy > 132 && sx < 54 && sx > 1 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 125 && py > 99 && px < 86 && px > 42  && sy < 125 && sy > 99 && sx < 86 && sx > 42 )
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//

@@ -1,0 +1,28 @@
+/////////ganj/////////
+	//////RGB/////
+	else if (Redcolor() && red + black + cyan < 6 && (red < 2) || (Time >= 180 && Time <= 243))
+	{
+		red++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	///////RGB////////
+	else if (Blackcolor() && red + black + cyan < 6 && (black < 2) || (Time >= 180 && Time <= 243))
+	{
+		black++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}
+	/////////RGB/////////
+	else if (Cyancolor() && red + black + cyan < 6 && (cyan < 2) || (Time >= 180 && Time <= 243))
+	{
+		cyan++;
+		WheelLeft = 0;
+		WheelRight = 0;
+		Duration = 50;
+		LED_1 = 1;
+	}

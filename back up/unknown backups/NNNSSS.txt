@@ -1,0 +1,52 @@
+pygame 1.9.6
+Hello from the pygame community. https://www.pygame.org/contribute.html
+libpng warning: iCCP: known incorrect sRGB profile
+//---//
+        if (py < 111 && py > 3 && px < 356 && px > 1  && sy < 111 && sy > 3 && sx < 356 && sx > 1 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 264 && py > 112 && px < 39 && px > 1  && sy < 264 && sy > 112 && sx < 39 && sx > 1 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 268 && py > 188 && px < 131 && px > 40  && sy < 268 && sy > 188 && sx < 131 && sx > 40 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 267 && py > 205 && px < 204 && px > 145  && sy < 267 && sy > 205 && sx < 204 && sx > 145 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 193 && py > 5 && px < 267 && px > 79  && sy < 193 && sy > 5 && sx < 267 && sx > 79 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 267 && py > 198 && px < 358 && px > 217  && sy < 267 && sy > 198 && sx < 358 && sx > 217 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//
+//---//
+        if (py < 187 && py > 118 && px < 357 && px > 281  && sy < 187 && sy > 118 && sx < 357 && sx > 281 && base == 0)
+        {
+                base = 1;
+                tik = 0;
+        }
+//---//

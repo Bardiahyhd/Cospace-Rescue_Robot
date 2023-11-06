@@ -1,0 +1,105 @@
+Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 19:29:22) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+================== RESTART: C:\Users\Bardia\Desktop\okoe.py ==================
+pygame 1.9.6
+Hello from the pygame community. https://www.pygame.org/contribute.html
+//---//
+	if (py < 157 && py > 3 && px < 292 && px > 116  && sy < 157 && sy > 3 && sx < 292 && sx > 116 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 155 && py > 3 && px < 439 && px > 293  && sy < 155 && sy > 3 && sx < 439 && sx > 293 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 156 && py > 4 && px < 597 && px > 439  && sy < 156 && sy > 4 && sx < 597 && sx > 439 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 221 && py > 169 && px < 659 && px > 378  && sy < 221 && sy > 169 && sx < 659 && sx > 378 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 221 && py > 173 && px < 370 && px > 2  && sy < 221 && sy > 173 && sx < 370 && sx > 2 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 290 && py > 230 && px < 717 && px > 1  && sy < 290 && sy > 230 && sx < 717 && sx > 1 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+//---//
+	if (py < 294 && py > 530 && px < 3 && px > 141  && sy < 294 && sy > 530 && sx < 3 && sx > 141 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 533 && py > 295 && px < 717 && px > 614  && sy < 533 && sy > 295 && sx < 717 && sx > 614 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 532 && py > 467 && px < 610 && px > 144  && sy < 532 && sy > 467 && sx < 610 && sx > 144 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 453 && py > 308 && px < 597 && px > 155  && sy < 453 && sy > 308 && sx < 597 && sx > 155 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 216 && py > 4 && px < 718 && px > 658  && sy < 216 && sy > 4 && sx < 718 && sx > 658 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 88 && py > 2 && px < 655 && px > 596  && sy < 88 && sy > 2 && sx < 655 && sx > 596 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 94 && py > 3 && px < 112 && px > 56  && sy < 94 && sy > 3 && sx < 112 && sx > 56 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
+//---//
+	if (py < 164 && py > 105 && px < 59 && px > 26  && sy < 164 && sy > 105 && sx < 59 && sx > 26 )
+	{
+		base = 1;
+		tik = 0;
+	}
+//---//
